@@ -1,0 +1,11 @@
+<!--pages/multifocal/multifocal.wxml-->
+<view style="padding:23vh 0px">
+  <view>
+    <image class="img" mode="aspectFit" src="{{url}}"></image>
+  </view>
+  <view class="button_container">
+      <block wx:for="{{buttons}}" wx:key="buttons">
+      <button class='{{item.checked?"checked_button":"normal_button"}}' data-name="{{item.name}}" data-id='{{item.id}}' bindtap='radioButtonTap'>{{item.name}}</button>
+    </block>
+  </view>
+</view>

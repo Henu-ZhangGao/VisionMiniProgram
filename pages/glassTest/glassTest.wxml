@@ -1,0 +1,101 @@
+<!--pages/glassTest/glassTest.wxml-->
+<wxs module="number" src="../../utils/number.wxs"></wxs>
+<view bindtouchmove='{{isRun?"touchmoveCallback":""}}' bindtouchstart='{{isRun?"touchstartCallback":""}}' class="container" style="padding:0px;height:100vh;width:100vw;">
+  <view style="height:100%;width:100%;z-index:{{zindex}};" class="imgbgContainer">
+    <scroll-view scroll-y="true" scroll-x="true" style="height:100%;width:100%">
+    <image mode='aspectFit' binderror="errImg" src="{{tempFilePaths}}" style="margin-top:{{y}}px;margin-left:{{x}}px;width:{{scaleWidth}};height:{{scaleHeight}};-webkit-transform:rotate({{rotate}}deg);" bindload="imgload"></image>
+  </scroll-view>
+  </view>
+<!-- <image bindload="imageOnload" src="{{tempFilePaths}}" bindtap="bindTouchMove"></image> -->
+  <view class="col" style="height:100vh;">
+    <!-- <movable-area style="z-index:{{zindex}}" class="imgbgContainer">
+      <movable-view style="height:auto;width:auto;" direction="all">
+        <image style="width:{{scaleWidth}};height:{{scaleHeight}};-webkit-transform:rotate({{rotate}}deg);" bindload="imgload" src="{{tempFilePaths}}"></image>
+      </movable-view>
+    </movable-area> -->
+    <view class="row" style="height:20%;" hidden="{{isHidden}}">
+      <view class="textContainer">
+        <text>镜框高(mm):</text>
+        <input bindinput="changeHeight" class="text " value="{{heightContainer}}"/>
+      </view>
+      <view class="textContainer">
+        <text>瞳高(mm):</text>
+        <text class="text">{{number.toFix(heightPupil)}}</text>
+      </view>
+      <button hidden="{{isHidden}}" bindtap="save" style="width:9vw;height:8vh;padding:0.5%;margin:0px 5%;">{{change?str1:str2}}</button>
+    </view>
+    <view class="canvasContainer" style="height:{{isHidden?80:60}}%;">
+      <movable-area class='moveContainer' style="left:{{isHidden?left_:left}}vw;width:{{isHidden?width_:width}}vw;height:{{isHidden?length_:length}}vh;top:{{isHidden?top_:top}}vh;">
+        <movable-view hidden="{{isHidden}}" bindtouchstart="start" bindtouchmove="move" bindtouchend="end" direction="vertical" class="imgContainer">
+          <image src="{{url_red}}" class="img"></image>
+        </movable-view>
+        <movable-view hidden="{{!isHidden}}" bindtouchstart="start" bindtouchmove="move" bindtouchend="end" direction="horizontal" class="imgContainer_">
+          <image src="{{urlred}}" class="img"></image>
+        </movable-view>
+        <movable-view hidden="{{isHidden}}" bindtouchstart="start_1" bindtouchmove="move_1" bindtouchend="end" direction="vertical" class="imgContainer">
+          <image src="{{url_yellow}}" class="img"></image>
+        </movable-view>
+        <movable-view hidden="{{!isHidden}}" bindtouchstart="start_1" bindtouchmove="move_1" bindtouchend="end" direction="horizontal" class="imgContainer_">
+          <image src="{{urlyellow}}" class="img"></image>
+        </movable-view>
+      </movable-area>
+      <view style="width:{{!isHidden?100:heightContainer}}%;height:{{isHidden?100:heightContainer}}%">
+        <image src='{{isHidden?url_1:url}}' class="imgbg">
+        </image>
+      </view>
+    </view>
+      <view class="row" style="height:20%;">
+    <slider bindchanging='{{isRun?"rotate":""}}' style="width:80%" min="-90" max="90" value="0"/>
+  </view>
+  </view>
+  <view class="col" style="width:15vw;height:100vh;">
+  <view class="row" style="height:30%;">
+    <view class="row" style="height:100%;">
+      <button bindtap="changeImage" style="width:9vw;height:8vh;padding:0.5%;margin:0px 5%;">图层</button>
+      <button bindtap="location" style="width:9vw;height:8vh;padding:0.5%;margin:0px 5%;">换位</button>
+    </view>
+  </view>
+  <view class="btnGroup">
+        <block wx:for="{{btn_1}}">
+        <button class="btn" data-id="{{item.id}}" bindtap="clickThing" style="background-image: url({{item.url}});width:100%;border-radius: 50%;">{{item.text}}</button>
+        </block>
+    </view>
+  </view>
+  <view hidden="{{isHidden}}" class="tableContainer">
+    <view class="table">
+      <view wx:key="*this" wx:for="{{tableHead}}">
+        <text>{{item}}</text>
+      </view>
+      <!-- 存放结果数据 -->
+    </view>
+    <view class="table">
+      <view wx:key="*this" style="width:33%;" wx:for="{{tableData}}">
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- <view hidden="{{!isHidden}}" class="tableContainer_1">
+    <view class="table">
+      <view wx:for="{{tableHead_1}}">
+        <text>{{item}}</text>
+      </view>
+    </view>
+    <view class="table">
+      <view style="width:33%;" wx:for="{{tableData_1}}">
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </view> -->
+  <view class="tableContainer_1" hidden="{{!isHidden}}">
+    <view class="textContainer_">
+      <view style="justify-content:left;" class="row">镜框宽(mm):<input type="number" bindinput="inputGlass" value="{{number.toFix(eyeDistance)}}" style="width:58%"/></view>
+      <view style="justify-content:left;" class="row">缩放比例:<text style="width:75%;">{{number.toFix(scale)}}</text></view>
+    </view>
+    <view class="su-th">
+      <view wx:key="*this" wx:for="{{column}}">{{item}}</view>
+    </view>
+    <view class="su-tr" wx:key="*this" wx:for="{{tableContent}}">
+      <view class="su-td" wx:key="*this" wx:for="{{item}}">{{item}}</view>
+    </view>
+  </view>
+</view>

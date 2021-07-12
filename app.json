@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/camera/camera",
+    "pages/car/car",
+    "pages/physics/physics",
+    "pages/sun/sun",
+    "pages/glasses/glasses",
+    "pages/eye_axis/eye_axis",
+    "pages/uv/uv",
+    "pages/astigmia/astigmia",
+    "pages/multifocal/multifocal",
+    "pages/simulate/simulate",
+    "pages/eye_axis/eye_base/eye_base",
+    "pages/eye_axis/medical_predict/medical_predict",
+    "pages/astigmia/imaging/imaging",
+    "pages/astigmia/cornea/cornea",
+    "pages/astigmia/clear/clear",
+    "pages/recipe/recipe",
+    "pages/visualTrainingIntervent/visualTrainingIntervent",
+    "pages/docterRecipe/docterRecipe",
+    "pages/glassTest/glassTest"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "专业视光",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

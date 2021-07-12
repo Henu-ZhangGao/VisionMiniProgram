@@ -1,0 +1,18 @@
+<!--pages/glasses/glasses.wxml-->
+<view class="container">
+  <view class="imgContainer">
+    <image class="img" style="filter:blur({{blurR}}px)" mode="aspectFill" src="http://139.196.151.36:8080/img/blackboard.jpg">
+    </image>
+  </view>
+  <view class="button_container">
+    <block wx:for="{{buttons}}" wx:key="buttons">
+    <button style="height:60%;" class='{{item.checked?"checked_button":"normal_button"}}' data-name="{{item.name}}" data-id='{{item.id}}' bindtap="radioButtonTap">{{item.name}}</button>
+    </block>
+  </view>
+  <view class="canvas_container">
+    <canvas hidden="{{isHidden}}" style="width:100%;height:100%;" canvas-id="blackboard"></canvas>
+  </view>
+  <cover-view class="btnContainer">
+    <button bindtap="isBtnHidden" class="btn">眯眼</button>
+  </cover-view>
+</view>

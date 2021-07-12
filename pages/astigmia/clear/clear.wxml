@@ -1,0 +1,16 @@
+<!--pages/astigmia/clear/clear.wxml-->
+<view class="container">
+  <view style="width:100%;height:40vh;">
+    <view style="width:100%;">
+    <image style="filter:blur({{blur}}px);width:100%;height:500rpx" src="{{url}}" mode="aspectFit"></image>
+      <view style="position:fixed;width:100%;top:30%;">
+        <text>{{str}}</text>
+      </view>
+    </view>
+    <view class="button_container">
+      <block wx:for="{{buttons}}" wx:key="buttons">
+        <button style=" border-radius: 50%;width:20%" class='{{item.checked?"checked_button":"normal_button"}}' data-name="{{item.name}}" data-id='{{item.id}}' bindtap='radioButtonTap'>{{item.name}}</button>
+      </block>
+    </view>
+  </view>
+</view>

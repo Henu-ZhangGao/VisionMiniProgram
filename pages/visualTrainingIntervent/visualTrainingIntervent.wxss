@@ -1,0 +1,35 @@
+/* pages/visualTrainingIntervent/visualTrainingIntervent.wxss */
+.container_2{
+  width: 100%;
+}
+.flex-span{
+  padding: 5%;
+  width: 50%;
+}
+.input{
+  border:1px solid black;
+  width:80%;
+  height:50%;
+}
+.su-td {
+  width: 20%;
+  padding: 0rpx 7vw;
+  display: table-cell; /*此元素会作为一个表格单元格显示（类似 <td> 和 <th>）*/
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border: 1rpx solid #DDDDDD;
+}
+.su-th {
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  font-size: 1.4em;
+  height: 8vh;
+  background-color: #DDDDDD;
+}
+.su-tr {
+  display: table-row; /*此元素会作为一个表格行显示（类似 <tr>）*/
+  background-color: #d773ff46;
+  width: 100%;
+}

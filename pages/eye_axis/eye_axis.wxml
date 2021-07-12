@@ -1,0 +1,21 @@
+<!--pages/eye_axis/eye_axis.wxml-->
+<view class="container">
+  <view style="flex-direction:row;width:100%">
+    <view style="width:100%;">
+      <image mode="aspectFit" style="width:100%;" bindtap="bind" src="http://139.196.151.36:8080/img/eye_base_0.png">
+      </image>
+    </view>
+    <text>眼轴和眼底
+    </text>
+  </view>
+  <view style="flex-direction:row">
+    <view>
+      <image mode="aspectFit" bindtap="bind_1" src="http://139.196.151.36:8080/img/red_cross.jpg">
+    </image>
+    </view>
+    <view>
+      <text>医学视力预测
+      </text>
+    </view>
+  </view>
+</view>

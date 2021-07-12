@@ -1,0 +1,155 @@
+<!--pages/eye_axis/medical_predict/medical_predict.wxml-->
+<view class="container">
+  <view>
+  <form hidden="{{formHidden}}" bindsubmit="formSubmit" class="Form">
+    <view style="text-align:left;">
+      <view hidden="{{!setHidden[0]}}">
+      <view class="flex-row">
+        <view class="flex-span">
+          <view><text>年龄:</text></view>
+          <view class="input" >
+            <picker style="height:100%;font-size:1.4em" mode="selector" range="{{age}}" name="age" value="{{age[index]}}" bindchange="listenerPickerSelected"> 
+              <text>{{age[index]}}周岁</text>
+          </picker></view>
+        </view>
+        <view class="flex-span">
+          <view><text>初始度数：</text></view>
+          <view style="flex-direction:row;display:flex;">
+            
+            <button style="width:20%;" bindtap="increase">+</button>
+            <input value="{{degress}}" type="digit" name="glassDegress" style="width:60%;text-align:center;height:70rpx;" placeholder="0"/>
+            <button style="width:20%;" bindtap="decrease">-</button>
+            </view>
+        </view>
+      </view>
+    <view class="flex-row">
+      <view class="flex-span">
+        <text>性别:</text>
+        <radio-group name="gender" class="radio-group">
+          <label class="radio" wx:for="{{sex}}" wx:key="index">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+      <view class="flex-span">
+        <text>调节:</text>
+        <radio-group name="adjustStatus" class="radio-group">
+          <label class="radio" wx:for="{{range}}" wx:key="index">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+  <!-- </view>
+    <view hidden="{{!setHidden[1]}}"> -->
+    <view class="flex-row">
+      <view class="flex-span">
+        <text>8小时充足睡眠:</text>
+        <radio-group name="Sleep" class="radio-group">
+          <label class="radio" wx:for="{{isSufficientSleep}}" wx:key="index">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+      <view class="flex-span">
+        <text>甜食偏好：</text>
+        <radio-group name="preferenceSugar" class="radio-group">
+          <label class="radio" wx:for="{{preferenceDegree}}" wx:key="index">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class="flex-row">
+      <view class="flex-span">
+        <text>每天两小时户外运动</text>
+        <radio-group name="sport" class="radio-group">
+          <label class="radio" wx:for="{{isSport}}" wx:key="index">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+      <view class="flex-span">
+        <text>父母是否高度近视(600度以上)</text>
+        <radio-group name="myopiaStatus" class="radio-group">
+          <label class="radio" wx:for="{{isMyopia}}" wx:key="index">
+            <!-- Myopia是近视意思 -->
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+  </view>
+    <view hidden="{{!setHidden[1]}}">
+    <view class="flex-row">
+      <view class="flex-span">
+        <text>是否营养不均衡(挑食):</text>
+        <radio-group name="fussyFood" class="radio-group">
+          <label class="radio" wx:for="{{isFussyFood}}" wx:key="index">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+      <view class="flex-span">
+        <text>发育情况:</text>
+        <radio-group name="growthStatus" class="radio-group">
+          <label class="radio" wx:for="{{growthStatus}}" wx:key="index">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class="flex-row">
+      <view class="flex-span">
+        <text>是否定期清洗、调整眼镜、复查视力:</text>
+        <radio-group name="Clear" class="radio-group">
+          <label class="radio" wx:for="{{isClear}}" wx:key="index">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+      <view class="flex-span">
+        <text>电子产品使用情况</text>
+        <radio-group name="electronicsStatus" class="radio-group">
+          <label class="radio" wx:for="{{usingElectronicsStatus}}" wx:key="index">
+            <!-- Myopia是近视意思 -->
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+  <!-- </view>
+  <view hidden="{{!setHidden[3]}}"> -->
+    <view class="flex-row">
+      <view class="flex-span">
+        <text>读写姿势是否良好：</text>
+        <radio-group name="wellPosture" class="radio-group">
+          <label class="radio" wx:for="{{isWellPosture}}" wx:key="index">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+      <view class="flex-span">
+        <text>座位在教室位置：</text>
+        <radio-group name="seatLocal" class="radio-group">
+          <label class="radio" wx:for="{{seatLocal}}" wx:key="index">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+  </view>
+    <view class="flex-row">
+        <button bindtap="clickSwitch" hidden="{{setHidden[1]}}" class="{{showView?'header_view_show':'header_view_hide'}}">下一步</button>
+    </view>
+    <view class="flex-row">
+        <button form-type="submit" hidden="{{!setHidden[1]}}" class="{{showView?'header_view_show':'header_view_hide'}}">开始医学检测</button>
+    </view>
+  </view>
+  </form>
+  <view hidden="{{!formHidden}}" style="width:100%;">
+    <text style='font-size:50rpx;'>预计增加联合屈光度:</text><text style="color:red;font-size:100rpx;">{{diopters}}</text>
+    <image mode="aspectFit" style="width:100%;margin:5% 0px;" src="{{url}}"></image>
+  </view>
+  </view>
+</view>

@@ -1,0 +1,11 @@
+<!--pages/eye_axis/eye_base/eye_base.wxml-->
+<view class="container">
+  <view style="width:100%;">
+    <image style="width:100%;height:400rpx" mode="aspectFill" src="{{url}}"></image>
+  </view>
+  <view class="button_container">
+    <block wx:for="{{buttons}}" wx:key="buttons">
+    <button class='{{item.checked?"checked_button":"normal_button"}}' data-name="{{item.name}}" data-id='{{item.id}}' bindtap='radioButtonTap' style="margin:2%">{{item.name}}</button>
+  </block>
+  </view>
+</view>

@@ -1,0 +1,23 @@
+<!--pages/simulate/simulate.wxml-->
+<view class="container">
+  <view style="width:100%;height:45vh">
+  <view class="bindContainer">
+    <view bindtap="top" style="position:absolute;top:10%;width:74%;left:13%;height:30%;"></view>
+    <view bindtap="middle" style="position:absolute;top:40%;width:50%;left:27%;height:20%;"></view>
+    <view bindtap="bottom" style="position:absolute;top:60%;width:50%;left:27%;height:20%;"></view>
+  </view>
+  <image bindload="checkWidthAndHeight" style="width:100%;height:470rpx" mode='aspectFit' src="{{url}}"></image>
+  
+<!-- 利用canvas和blur的原理 -->
+<!--或者两个canvas覆盖，并且一个canvas保持用高斯模糊，另一个可选择透明-->
+<!-- 离焦原理 -->
+  <view class="btn_container">
+    <button bindtap="toContainerOne">1</button>
+    <button bindtap="toContainerTwo">2</button>
+  </view>
+  <!-- <view class="canvasContainer">
+    <canvas class="cvs" canvas-id="Clear"></canvas>
+  </view> -->
+  
+  </view>
+</view>

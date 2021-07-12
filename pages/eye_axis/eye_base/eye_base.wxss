@@ -1,0 +1,28 @@
+/* pages/eye_axis/eye_base/eye_base.wxss */
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 45% 0;
+  box-sizing: border-box;
+  text-align: center;
+} 
+.button_container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10%;
+}
+/* 按钮未选中 */
+.normal_button{
+  background: white;
+  color: black;
+}
+/* 按钮选中 */
+.checked_button{
+  background: black;
+  color: white;
+}

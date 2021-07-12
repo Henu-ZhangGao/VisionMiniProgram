@@ -1,0 +1,18 @@
+/* pages/car/car.wxss */
+.top{
+  width: 509px;
+  height: 339px;
+}
+.slider_1{
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 35rpx;
+  color: #666;
+}
+.top_1{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  height: 339px;
+  z-index: 1;
+}

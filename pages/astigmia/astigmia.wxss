@@ -1,0 +1,21 @@
+/* pages/astigmia/astigmia.wxss */
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  text-align: center;
+} 
+.col{
+  border-radius: 50%;
+  border-width: 3px;
+  border-color: black;
+  width: 33%;
+}
+.img{
+  border-radius: 50%;
+  width: 100%;
+  height:90px;
+}

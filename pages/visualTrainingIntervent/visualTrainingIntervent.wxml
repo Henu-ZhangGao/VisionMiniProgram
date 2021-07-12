@@ -1,0 +1,36 @@
+<!--pages/visualTrainingIntervent/visualTrainingIntervent.wxml-->
+<view class="container_1">
+  <view hidden="{{isHidden}}" style="height:20vh;margin:40vh 0px;">
+    <form bindsubmit="sumbit_1">
+    <view style="flex-direction:row;display:flex;">
+      <view class="flex-span">
+          <view><text>年龄：</text></view>
+          <view class='input' >
+            <picker style="height:100%" mode="selector" range="{{age}}" name="age" value="{{age[index]}}" bindchange="listenerPickerSelected"> 
+              <text>{{age[index]}}</text>
+          </picker></view>
+        </view>
+        <view class="flex-span">
+          <view><text>联合屈光度：</text></view>
+          <view style="flex-direction:row;display:flex;">
+            <button style="width:20%;height:100%;" bindtap="increase_1">+</button>
+            <input value="{{diopter}}" type="digit" name="astigmatism" style="width:60%;text-align:center;height:100%;font-size:1.5em;" placeholder="0"/>
+            <button style="width:20%;height:100%;" bindtap="decrease_1">-</button>
+          </view>
+        </view>
+    </view>
+    <view style="width:100%;">
+      <button form-type="submit" bindtap="begin">训练干预</button>
+    </view>
+    </form>
+  </view>
+  <view class="container_2" hidden="{{!isHidden}}">
+    <view style="font-size:1.3em;font-weight:200px;">{{str}}</view>
+    <view class="su-th">
+      <view style="margin:0px 4%" wx:for="{{column}}">{{item}}</view>
+    </view>
+    <view class="su-tr" wx:for="{{tableContent}}">
+      <view class="su-td" wx:for="{{item}}">{{item}}</view>
+    </view>
+  </view>
+</view>

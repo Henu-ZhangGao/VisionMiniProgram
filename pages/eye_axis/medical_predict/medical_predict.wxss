@@ -1,0 +1,28 @@
+/* pages/eye_axis/medical_predict/medical_predict.wxss */
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  text-align: center;
+  flex-wrap: nowrap;
+}
+.input{
+  border: 1px solid black;
+  width:80%;
+  height:50%;
+}
+.flex-row{
+  flex-direction: row;
+  display: flex;
+  margin: 5% 0px;
+}
+.flex-span{
+  padding: 5%;
+  width: 50%;
+}
+.Form{
+  width: 100%;
+}

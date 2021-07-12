@@ -1,0 +1,17 @@
+/* pages/camera/camera.wxss */
+.top{
+  width: 500px;
+  height: 406px;
+}
+.slider_1{
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 35rpx;
+  color: #666;
+}
+.top_1{
+  position: absolute;
+  left: 0%;
+  height: 406px;
+  z-index: 1;
+}

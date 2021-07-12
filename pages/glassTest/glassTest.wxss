@@ -1,0 +1,133 @@
+/* pages/glassTest/glassTest.wxss */
+.btn{
+  min-width: 10vw;
+  border: 1px solid black;
+  margin: 8% 0px;
+  height: 30%;
+  font-size: 0.8em;
+}
+.moveContainer{
+  position: absolute;
+}
+.text{
+  width: 40%;
+  min-width: 40%;
+}
+.textContainer{
+  width: 50%;
+  display: flex;
+}
+.textContainer_{
+  display: flex;
+  flex-direction: column;
+  color: red;
+  background: #00000050;
+}
+.imgbgContainer{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+.imgContainer{
+  width: 100%;
+  height: 14vh;
+}
+.imgContainer_{
+  width: 6vw;
+  height: 100%;
+}
+.imgbg{
+  width: 100%;
+  height: 100%;
+}
+.img{
+  width: 100%;
+  height: 100%;
+}
+.canvasContainer{
+  width: 85vw;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+.change{
+  border-radius: 50%;
+}
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:center;
+  width: 100%;
+}
+.col{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  width: 100%;
+}
+.btnGroup{
+  display: flex;
+  flex-direction: column;
+  width:80%;
+  height: 70%;
+  padding:10% 10%;
+}
+.bottom{
+  width: 100vw;
+  height: 100%;
+}
+.tableContainer{
+  color: #4fb9ff;
+  font-size:1.3em;
+  position: absolute;
+  top: 14vh;
+  right: 20vw;
+  display: flex;
+  flex-direction: column;
+}
+.tableContainer_1{
+  color: #4fb9ff;
+  font-size:1.3em;
+  position: absolute;
+  z-index: -1;
+  top: 1%;
+  left: 3vw;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+}
+.table{
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+  align-items: center;
+}
+.su-td {
+  width: 25%;
+  align-content: space-around;
+  display: flex; /*此元素会作为一个表格单元格显示（类似 <td> 和 <th>）*/
+  text-align: center;
+  align-items: center;
+  border: 1px solid #DDDDDD;
+  font-size:0.6em;
+}
+.su-th {
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  background-color: #DDDDDD;
+}
+.su-tr {
+  align-items: center;
+  align-content: space-around;
+  display: flex; /*此元素会作为一个表格行显示（类似 <tr>）*/
+  background-color: #20032c2c;
+  width: 100%;
+  font-size: 1.5em;
+  height: 20%;
+}

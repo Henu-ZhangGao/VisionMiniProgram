@@ -1,0 +1,236 @@
+<!--pages/docterRecipe/docterRecipe.wxml-->
+<view class="container_1">
+  <view hidden="{{isHidden}}">
+  <view class="headline">
+    <text>视光医生问诊单</text>
+  </view>
+  <form bindsubmit="submit">
+  <view>
+    <view class="headline_1"><text>基础信息</text></view>
+    <view class="row">
+      <view>姓名</view>
+      <input class="input" name="name" type="text"/>
+      <view class="row_1"><text>性别</text>
+        <radio-group name="gender" class="radio_group">
+          <label wx:for="{{gender}}"><radio value="{{item.value}}" checked="{{item.checked}}"/>{{item.sex}}</label>
+        </radio-group>
+      </view>
+      <view>年龄</view>
+      <input class="input" name='age' type="text"/>
+      <view>职业</view>
+      <input class="input" name='job' type="text"/>
+    </view>
+  </view>
+  <view>
+    <view class="headline_1"><text>就诊目的</text></view>
+    <view class="row">
+      <text class="checkbox">就诊目的</text>
+      <checkbox-group class="check_group" name='goal'>
+        <label class="checkbox" wx:for="{{goal}}">
+          <checkbox value="{{item.value}}" checked="{{item.checked}}"/>{{item.str}}
+        </label>
+      </checkbox-group>
+    </view>
+  </view>
+  <view>
+    <view class="headline_1"><text>旧镜处方</text></view>
+    <view>
+      <view class="row bg_3">
+      <view wx:for="{{str}}">{{item}}</view>
+    </view>
+    <view class="row bg_1" >
+      <view style="width:10vh"><text>右眼</text></view>
+      <view class="row" style="width:90vw;">
+      <view class="selectionbar">
+        <button class="selectionbar_btn">+</button>
+        <input name='diopter' value='0' class="input_1" disabled="true"/>
+        <button class="selectionbar_btn">-</button>
+      </view>
+      <view class="selectionbar">
+        <button class="selectionbar_btn" bindtap="">
+          +
+        </button>
+        <input name='diopter' value='0' class="input_1" disabled="true"/>
+        <button class="selectionbar_btn">
+          -
+        </button>
+      </view>
+      <view>
+        <input type="number" class="input_1" value="0"/>
+      </view>
+      <view class="selectionbar">
+        <button class="selectionbar_btn">
+          +
+        </button>
+        <input name='diopter' value='0' class="input_1" disabled="true"/>
+        <button class="selectionbar_btn">
+          -
+        </button>
+      </view>
+      </view>
+    </view>
+    <view class="row bg_2">
+      <view style="width:10vh"><text>左眼</text></view>
+      <view class="row" style="width:90vw;">
+      <view class="selectionbar">
+        <button class="selectionbar_btn">+</button>
+        <input name='diopter' value='0' class="input_1" disabled="true"/>
+        <button class="selectionbar_btn">-</button>
+      </view>
+      <view class="selectionbar">
+        <button class="selectionbar_btn">
+          +
+        </button>
+        <input name='diopter' value='0' class="input_1" disabled="true"/>
+        <button class="selectionbar_btn">
+          -
+        </button>
+      </view>
+      <view>
+        <input type="number" class="input_1" value="0"/>
+      </view>
+      <view class="selectionbar">
+        <button class="selectionbar_btn">
+          +
+        </button>
+        <input name='diopter' value='0' class="input_1" disabled="true"/>
+        <button class="selectionbar_btn">
+          -
+        </button>
+      </view>
+      </view>
+    </view>
+  </view>
+    
+    <view class="row">
+      <view class="headline_2"><text>旧镜处方日期</text></view>
+      <radio-group class="radio_group" name="time">
+        <label wx:for="{{time}}"><radio value='{{item.value}}'/>{{item.time}}</label>
+      </radio-group>
+    </view>
+  </view>
+  <view>
+    <view class="headline_1"><text>角膜接触镜问诊</text></view>
+    <view class="row">
+      <view><text>佩戴方式</text></view>
+      <radio-group class="radio_group" name="style">
+        <label wx:for="{{style}}"><radio value='{{item.value}}'/>{{item.style}}</label>
+      </radio-group>
+    </view>
+    <view class="row">
+      <view><text>配镜史</text></view>
+      <radio-group class="radio_group" name="history">
+        <label style="font-size:1em;" wx:for="{{history}}"><radio value='{{item.value}}'/>{{item.history}}</label>
+      </radio-group>
+    </view>
+    <view class="row">
+      <view><text>选配周期</text></view>
+      <radio-group class="radio_group" name="period">
+        <label style="font-size:1em;" wx:for="{{period}}"><radio value='{{item.value}}'/>{{item.period}}</label>
+      </radio-group>
+    </view>
+  </view>
+  <view>
+    <view class="headline_1"><text>工作环境</text></view>
+    <view class="row">
+      <view><text>工作环境</text></view>
+      <radio-group class="radio_group" name='local'>
+        <label style="font-size:1em;" wx:for="{{local}}"><radio value='{{item.value}}'/>{{item.local}}</label>
+      </radio-group>
+    </view>
+  </view>
+  <view>
+    <view class="headline_1"><text>综合验光</text></view>
+      <view>
+        <view class="row">
+        <view wx:for="{{str_1}}">{{item}}</view>
+      </view>
+      <view class="row bg_1">
+        <view style="width:10vh"><text>右眼</text></view>
+        <view class="row" style="width:90vw;">
+        <view class="selectionbar">
+          <button class="selectionbar_btn">+</button>
+          <input name='diopter' value='0' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn">-</button>
+        </view>
+        <view class="selectionbar">
+          <button class="selectionbar_btn">
+            +
+          </button>
+          <input name='diopter' value='0' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn">
+            -
+          </button>
+        </view>
+        <view>
+          <input class="input_1" value="0"/>
+        </view>
+        <view class="selectionbar">
+          <button class="selectionbar_btn">
+            +
+          </button>
+          <input name='diopter' value='0' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn">
+            -
+          </button>
+        </view>
+        </view>
+      </view>
+      <view class="row bg_2">
+        <view style="width:10vh"><text>左眼</text></view>
+        <view class="row" style="width:90vw;">
+        <view class="selectionbar">
+          <button class="selectionbar_btn">+</button>
+          <input name='diopter' value='0' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn">-</button>
+        </view>
+        <view class="selectionbar">
+          <button class="selectionbar_btn">
+            +
+          </button>
+          <input name='diopter' value='0' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn">
+            -
+          </button>
+        </view>
+        <view>
+          <input class="input_1" value="0"/>
+        </view>
+        <view class="selectionbar">
+          <button class="selectionbar_btn">
+            +
+          </button>
+          <input name='diopter' value='0' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn">
+            -
+          </button>
+        </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view><button form-type="submit">生成处方</button></view>
+  </form>
+</view>
+  <view hidden="{{!isHidden}}">
+    <text class="headline">视光医生处方单</text>
+    <view class="table">
+    <view class="tr thColor">
+      <view class="th">姓名</view>
+      <text class="th">{{name}}</text>
+      <view class="th ">年龄</view>
+      <text class='th'>{{age}}</text>
+      <view class="th ">职业</view>
+      <text class="th">{{job}}</text>
+    </view>
+    <view class="table-wrap">
+      <block wx:for="{{listData}}" wx:key="{{code}}">
+        <view class="tr">
+          <view class="td td1">{{item.col1}}</view>
+          <view class="td td2">{{item.col2}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+  </view>
+</view>
