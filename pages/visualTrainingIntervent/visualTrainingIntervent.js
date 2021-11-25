@@ -17,20 +17,27 @@ Page({
     let list=e.detail.value;
     let age=list['age'];
     let astigmatism=parseFloat(list['astigmatism']);
+    let astigmatisms=[astigmatism,astigmatism,astigmatism,astigmatism]
     let list_1=this.data.tableContent
-    console.log(list);
-    for(let i=0;i<list_1.length;i++)
+    console.log(list_1.length);
+    console.log(age)
+    for(let i=0;i<list_1.length;i=0)
     {
-      if(age>list_1[i][0]){
-        list_1.splice(0,i+1)
+      if(age>list_1[0][0]){
+        console.log(list_1[0][0])
+        list_1.splice(0,1)
+        continue;
         // list_1.splice(9-i)
       }
+      else{
+        break;
+      }
     }
-    list_1[0].splice(1,4,astigmatism,astigmatism,astigmatism,astigmatism);
+    list_1[0].splice(1,4,astigmatisms[0],astigmatisms[1],astigmatisms[2],astigmatisms[3]);
     for(let x=1;x<list_1.length;x++)
       {
-          list_1[x].splice(1,4,astigmatism,astigmatism*0.75,astigmatism*0.5,astigmatism*0.25);
-          astigmatism=astigmatism-200;
+          list_1[x].splice(1,4,astigmatisms[0]-200,astigmatisms[1]-150,astigmatisms[2]-100,astigmatisms[3]-50);
+          astigmatisms=[astigmatisms[0]-200,astigmatisms[1]-150,astigmatisms[2]-100,astigmatisms[3]-50];
       }
     this.setData({
       tableContent:list_1,     

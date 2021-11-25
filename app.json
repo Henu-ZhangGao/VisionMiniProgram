@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/login/login",
+    
     "pages/index/index",
+    "pages/glassTest/glassTest",
+    "pages/login/login",
     "pages/logs/logs",
     "pages/camera/camera",
     "pages/car/car",
@@ -20,8 +22,7 @@
     "pages/astigmia/clear/clear",
     "pages/recipe/recipe",
     "pages/visualTrainingIntervent/visualTrainingIntervent",
-    "pages/docterRecipe/docterRecipe",
-    "pages/glassTest/glassTest"
+    "pages/docterRecipe/docterRecipe"
   ],
   "window": {
     "backgroundTextStyle": "light",

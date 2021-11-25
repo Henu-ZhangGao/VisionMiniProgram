@@ -30,19 +30,22 @@ Page({
     })
   },
   login: function () {
-    if(this.data.username=="zhanggao"&&this.data.password=="123456")
+    for(var i=0;i<app.globalData.userId.length;i++)
     {
-      wx.navigateTo({
-        url: '../index/index',
-      })
+      if(this.data.username==app.globalData.userId[i]&&this.data.password==app.globalData.userPassword[i])
+      {
+        console.log(Page)
+        wx.navigateTo({
+          url: '../index/index',
+        })
+        return;
+      }
     }
-    else{
-      wx.showToast({
-        title: '账号或密码错误',
-        icon: 'none',
-        duration: 1000
+    wx.showToast({
+      title: '账号或密码错误',
+      icon: 'none',
+      duration: 1000
       })
-    }
   },
   /**
    * 生命周期函数--监听页面加载

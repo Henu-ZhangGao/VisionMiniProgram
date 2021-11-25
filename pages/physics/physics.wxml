@@ -1,19 +1,26 @@
 <!--pages/physics/physics.wxml-->
 <!-- 这是镜片折射率 -->
 <view class="contain">
-  <view style="flex-direction:row;display:flex;">
-    <view style="width:100%">
-      <canvas class="mycanvas" canvas-id="convex_mirror" style="background:#000;"></canvas>
+  <view style="flex-direction:row;display:flex;height:85vh;">
+  <view style="display:flex;flex-direction:column;width:15%;height:100%;">
+  <!-- justify-content: center; -->
+    <button bindtap="canvasChange" style="width:100%;margin:10% 0px" class='{{!checked?"checked_button":"normal_button"}}'>左</button>
+    <button style="width:100%;margin:10% 0px" class='checked_button'>1.56</button>
+  </view>
+    <view style="width:100%;display:flex;">
+      <canvas type="2d" class="mycanvas" id="convex_mirror_1" style="background:#000;"></canvas>
+      <canvas type="2d" class="mycanvas" id="convex_mirror" style="background:#000;"></canvas>
     </view>
-    <view style="flex-direction:column;width:15%;height:80vh;">
+    <view style="flex-direction:column;width:15%;height:100%;">
+      <button bindtap="canvasChange" style="width:100%;margin:10% 0px" class='{{checked?"checked_button":"normal_button"}}'>右</button>
       <block wx:for="{{buttons}}" wx:key="buttons">
-        <button style="width:100%;margin:10% 0px" class='{{item.checked?"checked_button":"normal_button"}}' data-name="{{item.name}}" data-id='{{item.id}}' bindtap='radioButtonTap'>{{item.name}}</button>
+        <button style="width:100%;margin:10% 0px" class='{{item.checked?"checked_button":"normal_button"}}' data-name="{{item.name}}" data-id='{{item.id}}' bindtap='radioButtonRight'>{{item.name}}</button>
       </block>
    </view>
   </view>
   <view class="button_container">
     <block wx:for="{{buttons_1}}" wx:key="buttons_1">
-      <button class='{{item.checked?"checked_button":"normal_button"}}' style="width:100%;height:100%;" data-name="{{item.name}}" data-id='{{item.id}}' bindtap='radioButtonTap_1'>{{item.name}}</button>
+      <button class='{{item.checked?"checked_button":"normal_button"}}' style="width:100%;height:100%;" data-name="{{item.name}}" data-id='{{item.id}}' bindtap='radioButtonBottom'>{{item.name}}</button>
     </block>
   </view>
 </view>

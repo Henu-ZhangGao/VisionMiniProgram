@@ -80,13 +80,9 @@ Page({
       });
   },
   decrease:function(){
-    if(this.data.degress<-1500)
-    {
       this.setData({
         degress:this.data.degress-25,
       })
-    }
-    
   },
   increase:function(){
     if(this.data.degress<0){

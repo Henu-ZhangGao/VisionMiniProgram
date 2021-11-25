@@ -1,0 +1,38 @@
+<view class="ruler_box big">
+    <!-- <view class="icon_view row"> -->
+      <!-- 图标和图标旁文字 -->
+      <!-- <view class="icon_box" style="margin-left:15px;">
+        <view style="height:{{icon_size}}px;width:{{icon_size}}px;">
+          <image src="{{icon_path}}" style="height:100%;width:100%;" mode="aspectFit"></image>
+        </view>
+        <view style="font-size:{{icon_font}}px;color:{{font_color}};margin-left:16rpx;">{{icon_text}}</view>
+      </view> -->
+      <!-- 右侧的单位 -->
+      <!-- <view class="unit_box" style="font-size:{{unit_sizt}}px;color:{{font_color}};">
+        <view class="tab">{{unit_text}}</view>
+      </view> -->
+    <!-- </view> -->
+
+  <view style="height:100%;width:100%;"><!-- background: rgba(255,255,255,0.4);border-radius:5px; -->
+  <view wx:for='{{loopNum}}' style="width:{{cm_width}}rpx;display:inline-block;font-size:{{scale_size}}px">
+        <block style="display:flex;flex-direction:vertical;">
+            <block wx:if="{{index != loopNum&&index!=0}}">
+                    <view class="kedu left1em" wx:if="{{index * interval + minValue < 10}}">{{index * interval + minValue}}</view>
+                    <view class="kedu left2em" wx:elif="{{index * interval + minValue < 100}}">{{index * interval + minValue}}</view>
+                    <view class="kedu left3em" wx:else>{{index * interval + minValue}}</view>
+            </block>
+            <view wx:if="{{index!=0}}" style="width:100%;height:50%;">
+              <image src="../../pages/image/kedu.png" style="width:200%;" mode='widthFix'></image>
+            </view>
+          </block>
+      </view>
+      </view>
+
+    <!-- 游标 -->
+    <!-- <view class="cursor_box">
+      <view style="font-size:{{cursor_font_size}}px;color:{{font_color}}">{{currentNum}}</view>
+      <view style="width:30rpx;height:60rpx;">
+        <image style="height:100%;width:100%;" src="{{cursor_url}}" mode="scaleToFill"></image>
+      </view>
+    </view> -->
+  </view>

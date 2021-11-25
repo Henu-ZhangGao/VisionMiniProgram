@@ -39,64 +39,72 @@
       <view wx:for="{{str}}">{{item}}</view>
     </view>
     <view class="row bg_1" >
-      <view style="width:10vh"><text>右眼</text></view>
-      <view class="row" style="width:90vw;">
+      <view style="width:15%;"><text>右眼</text></view>
+      <view class="row" style="width:75%;;">
       <view class="selectionbar">
-        <button class="selectionbar_btn">+</button>
-        <input name='diopter' value='0' class="input_1" disabled="true"/>
-        <button class="selectionbar_btn">-</button>
+        <button class="selectionbar_btn" data-id="1" bindtap="add">+</button>
+        <input name='diopter' value='{{rightEye[0][0]*25}}' class="input_1" disabled="true"/>
+        <button class="selectionbar_btn" data-id="1" bindtap="minus">-</button>
       </view>
       <view class="selectionbar">
-        <button class="selectionbar_btn" bindtap="">
-          +
+        <button class="selectionbar_btn" data-id="2" bindtap="add">+
         </button>
-        <input name='diopter' value='0' class="input_1" disabled="true"/>
-        <button class="selectionbar_btn">
-          -
+        <input name='diopter' value='{{rightEye[0][1]*25}}' class="input_1" disabled="true"/>
+        <button class="selectionbar_btn" data-id="2" bindtap="minus">-
         </button>
-      </view>
-      <view>
-        <input type="number" class="input_1" value="0"/>
       </view>
       <view class="selectionbar">
-        <button class="selectionbar_btn">
-          +
+        <button class="selectionbar_btn" data-id="3" bindtap="add">+
         </button>
-        <input name='diopter' value='0' class="input_1" disabled="true"/>
-        <button class="selectionbar_btn">
-          -
+        <input type="number" class="input_1" value="{{rightEye[0][2]}}"/>
+        <button class="selectionbar_btn" data-id="3" bindtap="minus">-
         </button>
+      </view>
+      <view class="selectionbar">
+        <view class='select_box'>
+            <view data-id="0" class='select' catchtap='selectTap'>
+                <text class='select_text'>{{selectData[Index[0]]}}</text>
+                <image class='select_img {{show[0]&&"select_img_rotate"}}' src='../image/gobottom.png'></image>         
+            </view>
+            <view class='option_box' style='height:{{show[0]?(selectData.length>5?300:selectData.length*60):0}}rpx;'>
+                <text data-id="0" class='option' style='{{Index[0]==selectData.length-1&&"border:0;"}}' wx:for='{{selectData}}' wx:key='this' data-index='{{index}}' catchtap='optionTap'>{{item}}</text>
+            </view>
+          </view>
       </view>
       </view>
     </view>
     <view class="row bg_2">
-      <view style="width:10vh"><text>左眼</text></view>
-      <view class="row" style="width:90vw;">
+      <view style="width:15%"><text>左眼</text></view>
+      <view class="row" style="width:75%;">
       <view class="selectionbar">
-        <button class="selectionbar_btn">+</button>
-        <input name='diopter' value='0' class="input_1" disabled="true"/>
-        <button class="selectionbar_btn">-</button>
+        <button class="selectionbar_btn" data-id="10" bindtap="add">+</button>
+        <input name='diopter' value='{{leftEye[0][0]*25}}' class="input_1" disabled="true"/>
+        <button class="selectionbar_btn" data-id="10" bindtap="minus">-</button>
       </view>
       <view class="selectionbar">
-        <button class="selectionbar_btn">
-          +
+        <button class="selectionbar_btn" data-id="11" bindtap="add">+
         </button>
-        <input name='diopter' value='0' class="input_1" disabled="true"/>
-        <button class="selectionbar_btn">
-          -
+        <input name='diopter' value='{{leftEye[0][1]*25}}' class="input_1" disabled="true"/>
+        <button class="selectionbar_btn" data-id="11" bindtap="minus">-
         </button>
-      </view>
-      <view>
-        <input type="number" class="input_1" value="0"/>
       </view>
       <view class="selectionbar">
-        <button class="selectionbar_btn">
-          +
+        <button class="selectionbar_btn" data-id="12" bindtap="add">+
         </button>
-        <input name='diopter' value='0' class="input_1" disabled="true"/>
-        <button class="selectionbar_btn">
-          -
+        <input type="number" class="input_1" value="{{leftEye[0][2]}}"/>
+        <button class="selectionbar_btn" data-id="12" bindtap="minus">-
         </button>
+      </view>
+      <view class="selectionbar">
+        <view class='select_box'>
+            <view data-id="1" class='select' catchtap='selectTap'>
+                <text class='select_text'>{{selectData[Index[1]]}}</text>
+                <image class='select_img {{show[1]&&"select_img_rotate"}}' src='../image/gobottom.png'></image>         
+            </view>
+            <view class='option_box' style='height:{{show[1]?(selectData.length>5?300:selectData.length*60):0}}rpx;'>
+                <text data-id="1" class='option' style='{{Index[1]==selectData.length-1&&"border:0;"}}' wx:for='{{selectData}}' wx:key='this' data-index='{{index}}' catchtap='optionTap'>{{item}}</text>
+            </view>
+          </view>
       </view>
       </view>
     </view>
@@ -146,64 +154,85 @@
         <view wx:for="{{str_1}}">{{item}}</view>
       </view>
       <view class="row bg_1">
-        <view style="width:10vh"><text>右眼</text></view>
-        <view class="row" style="width:90vw;">
+        <view style="width:20%;"><text>右眼</text></view>
+        <view class="row" style="width:80%;">
         <view class="selectionbar">
-          <button class="selectionbar_btn">+</button>
-          <input name='diopter' value='0' class="input_1" disabled="true"/>
-          <button class="selectionbar_btn">-</button>
+          <button class="selectionbar_btn"  data-id="5" bindtap="add">+</button>
+          <input name='diopter' value='{{rightEye[1][0]*25}}' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn" data-id="5" bindtap="minus">-</button>
         </view>
         <view class="selectionbar">
-          <button class="selectionbar_btn">
-            +
-          </button>
-          <input name='diopter' value='0' class="input_1" disabled="true"/>
-          <button class="selectionbar_btn">
-            -
-          </button>
-        </view>
-        <view>
-          <input class="input_1" value="0"/>
+          <button class="selectionbar_btn" data-id="6" bindtap="add">+</button>
+          <input name='diopter' value='{{rightEye[1][1]*25}}' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn" data-id="6" bindtap="minus">-</button>
         </view>
         <view class="selectionbar">
-          <button class="selectionbar_btn">
-            +
+          <button class="selectionbar_btn" data-id="7" bindtap="add">+
           </button>
-          <input name='diopter' value='0' class="input_1" disabled="true"/>
-          <button class="selectionbar_btn">
-            -
+          <input name='diopter' value='{{rightEye[1][2]}}' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn" data-id="7" bindtap="minus">-
           </button>
+        </view>
+        <view class="selectionbar">
+          <button class="selectionbar_btn" data-id="8" bindtap="add">+
+          </button>
+          <input class="input_1" value="{{rightEye[1][3]}}"/>
+          <button class="selectionbar_btn" data-id="8" bindtap="minus">-
+          </button>
+        </view>
+        <view class="selectionbar">
+          <view class='select_box'>
+            <view data-id="2" class='select' catchtap='selectTap'>
+                <text class='select_text'>{{selectData[Index[2]]}}</text>
+                <image class='select_img {{show[2]&&"select_img_rotate"}}' src='../image/gobottom.png'></image>         
+            </view>
+            <view class='option_box' style='height:{{show[2]?(selectData.length>5?300:selectData.length*60):0}}rpx;'>
+                <text data-id="2" class='option' style='{{Index[2]==selectData.length-1&&"border:0;"}}' wx:for='{{selectData}}' wx:key='this' data-index='{{index}}' catchtap='optionTap'>{{item}}</text>
+            </view>
+          </view>
+          <!-- <button class="selectionbar_btn" data-id="9" bindtap="add">+
+          </button>
+          <input name='diopter' value='{{rightEye[1][4]*25}}' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn" data-id="9" bindtap="minus">-
+          </button> -->
         </view>
         </view>
       </view>
       <view class="row bg_2">
-        <view style="width:10vh"><text>左眼</text></view>
-        <view class="row" style="width:90vw;">
+        <view style="width:20%"><text>左眼</text></view>
+        <view class="row" style="width:80%;">
         <view class="selectionbar">
-          <button class="selectionbar_btn">+</button>
-          <input name='diopter' value='0' class="input_1" disabled="true"/>
-          <button class="selectionbar_btn">-</button>
+          <button class="selectionbar_btn" data-id="14" bindtap="add">+</button>
+          <input name='diopter' value='{{leftEye[1][0]*25}}' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn" data-id="14" bindtap="minus">-</button>
         </view>
         <view class="selectionbar">
-          <button class="selectionbar_btn">
-            +
-          </button>
-          <input name='diopter' value='0' class="input_1" disabled="true"/>
-          <button class="selectionbar_btn">
-            -
-          </button>
-        </view>
-        <view>
-          <input class="input_1" value="0"/>
+          <button class="selectionbar_btn" data-id="15" bindtap="add">+</button>
+          <input name='diopter' value='{{leftEye[1][1]*25}}' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn" data-id="15" bindtap="minus">-</button>
         </view>
         <view class="selectionbar">
-          <button class="selectionbar_btn">
-            +
+          <button class="selectionbar_btn" data-id="16" bindtap="add">+
           </button>
-          <input name='diopter' value='0' class="input_1" disabled="true"/>
-          <button class="selectionbar_btn">
-            -
+          <input name='diopter' value='{{leftEye[1][2]}}' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn" data-id="16" bindtap="minus">-
           </button>
+        </view>
+        <view class="selectionbar">
+          <button class="selectionbar_btn" data-id="17" bindtap="add">+</button>
+          <input name='diopter' value='{{leftEye[1][3]}}' class="input_1" disabled="true"/>
+          <button class="selectionbar_btn" data-id="17" bindtap="minus">-</button>
+        </view>
+        <view class="selectionbar">
+          <view class='select_box'>
+            <view data-id="3" class='select' catchtap='selectTap'>
+                <text class='select_text'>{{selectData[Index[3]]}}</text>
+                <image class='select_img {{show[3]&&"select_img_rotate"}}' src='../image/gobottom.png'></image>         
+            </view>
+            <view class='option_box' style='height:{{show[3]?(selectData.length>5?300:selectData.length*60):0}}rpx;'>
+                <text data-id="3" class='option' style='{{Index[3]==selectData.length-1&&"border:0;"}}' wx:for='{{selectData}}' wx:key='this' data-index='{{index}}' catchtap='optionTap'>{{item}}</text>
+            </view>
+          </view>
         </view>
         </view>
       </view>

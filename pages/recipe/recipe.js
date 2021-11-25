@@ -14,9 +14,16 @@ Page({
   },
   formSubmit:function(e){
     console.log(e.detail.value)
-    var astigmatism=parseFloat(e.detail.value.astigmatism);
-    var nearsighte=parseFloat(e.detail.value.nearsighte);
-    var sum=astigmatism+nearsighte/2;
+    var astigmatism=-parseFloat(e.detail.value.astigmatism);
+    var nearsighte=-parseFloat(e.detail.value.nearsighte);
+    var sum=nearsighte;
+    if(nearsighte>=400&&nearsighte<600){
+      sum=nearsighte-25;
+    }else if(nearsighte>=600&&nearsighte<800){
+      sum=nearsighte-50;
+    }else if(nearsighte>=800){
+      sum=nearsighte-100;
+    }
     if(astigmatism==0){
       this.setData({
         isAstigmatic:true,
@@ -24,7 +31,7 @@ Page({
     }
     this.setData({
       isHidden:!this.data.isHidden,
-      digitalDegress:sum,
+      digitalDegress:sum+astigmatism/2,
     })
   },
   decrease:function(){

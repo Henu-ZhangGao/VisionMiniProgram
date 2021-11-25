@@ -1,0 +1,20 @@
+<!--pages/test/test.wxml-->
+<view class="head">
+      <view class="head-text">账号激活</view>
+</view>
+<view class="container">
+     
+      <view class="above">
+      <!-- 二维码 -->
+      <image src="../../img/QRcode.png" mode="widthFix" class="QRcode">
+      
+      </image>
+      <view style="font-size:40rpx;margin-top:30rpx;color:red">您的账号未激活！</view>
+      <view style="margin-top:30rpx;">请扫码联系客服获取激活码</view>
+      </view>
+      <view class="below">
+      <!--<view style="margin-top:80rpx">输入激活码</view>-->
+      <input style="border: 2rpx solid gray;width:80%;height:80rpx;margin-left:10%;margin-top:30rpx;border-radius:40rpx" placeholder="激活码输入"   bindinput="bindKeyInput"/>
+      <button class="btn" bindtap="activate" style="width:80%;margin-top:50rpx;border-radius:40rpx;">确认激活</button>
+      </view>
+</view>
