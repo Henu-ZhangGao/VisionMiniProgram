@@ -235,23 +235,18 @@ Page({
     //计算移动的过程中实际移动了多少的距离
     let distanceDiff = distance - this.data.distance;
     let newScale = this.data.scale + 0.005 * distanceDiff
+    let baseWidth = newScale * this.data.baseWidth
+    let baseHeight = newScale * this.data.baseHeight
     // 为了防止缩放得太大，所以scale需要限制，同理最小值也是
       this.setData({
         distance: distance,
         scale: newScale,
-        baseWidth: baseWidth,
-        baseHeight: baseHeight,
+        scaleWidth: baseWidth+'px',
+        scaleHeight: baseHeight+'px',
+        // baseWidth:baseWidth,
+        // baseHeight:baseHeight,
         diff: distanceDiff,
       })
-      const query = wx.createSelectorQuery()
-    query.select('#eyePupuil')
-    .fields({ 
-      node: true,
-      size: true })
-    .exec((res) => {
-      res[0].width=this.data.baseWidth
-      res[0].height=this.data.baseHeight
-    })
     //为了防止缩放得太小，所以scale需要限制
       // this.setData({
       //   distance: distance,

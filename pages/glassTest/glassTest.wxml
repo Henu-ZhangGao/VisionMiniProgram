@@ -5,8 +5,8 @@
   <view style="height:100%;width:100%;" class="imgbgContainer">
   <!-- hidden="{{isDisappear}}"> -->
     <scroll-view scroll-y="true" scroll-x="true" style="height:100%;width:100%;z-index: inherit;">
-      <canvas type="2d" class="canvasVice" style="margin-top:{{y}}px;margin-left:{{x}}px;width:{{baseWidth}}px;height:{{baseHeight}}px;-webkit-transform:rotate({{rotate}}deg);" bindload="imgload" id="eyePupuil"></canvas>
-      <!-- <image binderror="errImg" src="{{tempFilePaths}}" style="margin-top:{{y}}px;margin-left:{{x}}px;width:{{scaleWidth}};height:{{scaleHeight}};" bindload="imgload"></image> -->
+      <!-- <canvas type="2d" class="canvasVice" style="margin-top:{{y}}px;margin-left:{{x}}px;width:{{baseWidth}}px;height:{{baseHeight}}px;" bindload="imgload" id="eyePupuil"></canvas> -->
+      <image binderror="errImg" src="{{tempFilePaths}}" style="margin-top:{{y}}px;margin-left:{{x}}px;width:{{scaleWidth}};height:{{scaleHeight}};-webkit-transform:rotate({{rotate}}deg);" bindload="imgload"></image>
   </scroll-view>
   </view>
   <view hidden="{{(isHidden||!change[1])||(!isHidden&&!change[0])?true:false}}" style="position:absolute;top:25%;width:60%;height:50%;z-index:1;">
