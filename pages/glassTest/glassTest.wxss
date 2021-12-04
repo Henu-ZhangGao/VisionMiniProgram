@@ -19,6 +19,17 @@ text{
   padding:0.5%;
   margin:0px 5%;
 }
+.btnFloat{
+  position: absolute;
+  width: auto;
+  height:12%;
+  background-color: black;
+  border: black 1px;
+  border-radius: 20%;
+  left: 1%;
+  top:30%;
+  z-index: 1000;
+}
 .moveContainer{
   position: absolute;
 }

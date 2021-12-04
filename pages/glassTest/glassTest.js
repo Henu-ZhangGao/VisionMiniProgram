@@ -9,27 +9,25 @@ Page({
    */
   data: {
     navBarHeight:0,
-    height:0,
-    url:["http://139.196.151.36:8080/img/rule_1.png","http://139.196.151.36:8080/img/rule.png","http://139.196.151.36:8080/img/red.png","http://139.196.151.36:8080/img/_red.png","http://139.196.151.36:8080/img/_yellow.png"],
+    str:["保存","重测"],
     btn_1:[{id:'1',text:'固定'},{id:'2',text:'照片'},{id:'3',text:'+'},{id:'4',text:'-'}],
+    //按钮组
     heightContainer:0,
     widthContainer:0,
     heightPupil:[[0,0],
                  [0,0]],
     eyeDistance:[0,0],
-    tempFilePaths:"http://139.196.151.36:8080/img/glassesTest.jpg",
+    isRun:[true,true],
     change:[true,true],
-    str:["保存","重测"],
     isHidden:false,
     distance:0,
     scale:1,
     baseHeight:299,
     baseWidth:353,
-    scaleWidth:300,
-    scaleHeight:100,
+    scaleWidth:'353px',
+    scaleHeight:'299px',
     diff:0,
     rotate:0,
-    isRun:true,
     x:0,
     y:0,
     _xMove:0,
@@ -40,13 +38,14 @@ Page({
     X2:0,
     Y1:0.2*app.globalData.Height,
     Y2:0,
-    isRun1:true,
+    //保存下次选项
     index:1,
     isDisappear:false,
-    value: 0,
     res:[],
     eyePupil:[],
     biasValue:[0,0],
+    url:["http://139.196.151.36:8080/img/rule_1.png","http://139.196.151.36:8080/img/rule.png","http://139.196.151.36:8080/img/red.png","http://139.196.151.36:8080/img/_red.png","http://139.196.151.36:8080/img/_yellow.png"],
+    tempFilePaths:"http://139.196.151.36:8080/img/glassesTest.jpg",
     // tableHead:['左瞳高(mm)','右瞳高(mm)','落差(mm)'],
     // tableData:['0.00','0.00','0.00'],
     // column:['左眼(mm)','右眼(mm)','瞳距差(mm)'],
@@ -317,7 +316,7 @@ Page({
   location(){
     this.setData({
       isHidden:!this.data.isHidden,
-      isRun:true,
+      'isRun[0]':true,
     })
     if(!this.data.change[0]){
       this.setData({
@@ -335,7 +334,7 @@ Page({
       })
     }
   },
-  save(){
+  onSave(){
     if(!this.data.isHidden)
     {
       this.setData({
@@ -355,12 +354,11 @@ Page({
         isDisappear:!this.data.change[1],
       })
     }
-    
-    this.drawCrossLine();
   },
+  //画瞳点
   drawCrossLine(){
     const query = wx.createSelectorQuery()
-    var eyePupil=[this.data.eyePupil[0]-this.data.biasValue[0],this.data.eyePupil[1]-this.data.biasValue[1],this.data.eyePupil[2]-this.data.biasValue[0],this.data.eyePupil[3]-this.data.biasValue[1]];
+    let eyePupil=[this.data.eyePupil[0]-this.data.biasValue[0],this.data.eyePupil[1]-this.data.biasValue[1],this.data.eyePupil[2]-this.data.biasValue[0],this.data.eyePupil[3]-this.data.biasValue[1]];
     query.select('#eyePupuil')
     .fields({ 
       node: true,
@@ -369,13 +367,7 @@ Page({
         let canvas=res[0].node
         let ctx=canvas.getContext('2d')
         let r=10
-        
-        // const img=canvas.createImage()
-        // const dpr=wx.getSystemInfoSync().pixelRatio
-        // img.src=this.data.tempFilePaths
-        // img.onload=()=>{
-        //   ctx.drawImage(img,0,0,canvas.width/dpr,canvas.height/dpr)
-        // }
+
         ctx.beginPath();
         ctx.strokeStyle="white"
         ctx.fillStyle="white"
@@ -413,42 +405,36 @@ Page({
       node: true,
       size: true })
     .exec((res) => {
-          const canvas=res[0].node
-          const ctx=canvas.getContext('2d')
-          const dpr = wx.getSystemInfoSync().pixelRatio
+          let canvas=res[0].node
+          let ctx=canvas.getContext('2d')
+          let dpr = wx.getSystemInfoSync().pixelRatio
+          let img=canvas.createImage()
+
           canvas.width =this.data.baseWidth * dpr
           canvas.height = this.data.baseHeight * dpr
           ctx.scale(dpr, dpr);
-          console.log(canvas)
           ctx.clearRect(0,0,canvas.width,canvas.height)
-          const img=canvas.createImage()
           img.src=this.data.tempFilePaths
           img.onload=()=>{
             ctx.drawImage(img,0,0,canvas.width/dpr,canvas.height/dpr)
           }
-          // ctx.beginPath()
-          // ctx.fillStyle="green"
-          // ctx.arc(this.data.eyePupil[0],this.data.eyePupil[1],20,0,2*Math.PI,false)
-          // ctx.moveTo(this.data.eyePupil[2],this.data.eyePupil[3])
-          // ctx.arc(this.data.eyePupil[2],this.data.eyePupil[3],20,0,2*Math.PI,false)
-          // ctx.fill()
-          // // ctx.fillText('边缘薄', this.data.eyePupil[0],this.data.eyePupil[1])
-          // ctx.closePath();
+          return ctx
         }
       )
+    
   },
-  rotate:function(e){
+  rotateImg:function(e){
     this.setData({
       rotate:e.detail.value,
     })
   },
   
-  start:function(e){
+  touchStart:function(e){
     this.setData({
-      isRun1:false,
+      'IsRun[1]':false,
     })
   },
-  move:function(e){
+  touchMove:function(e){
     console.log(e.detail.x)
     if(e.currentTarget.dataset.id=="left"){
       this.computerPosition(e,0);
@@ -457,69 +443,37 @@ Page({
     else{
       this.computerPosition(e,1);
     }
-    
-    // let temp;
-    // if(!this.data.isHidden)
-    // {
-    //   temp=this.data.tableData;
-    //   temp[0]=this.data.heightPupil[0].toFixed(2);
-    //   temp[1]=this.data.heightPupil_1[0].toFixed(2);
-    //   temp[2]=this.data.eyeDistance[0].toFixed(2);
-    // }
-    // else{
-    //   temp=this.data.tableContent;
-    //   temp[0]=this.data.heightPupil[1].toFixed(2);
-    //   temp[1]=this.data.heightPupil_1[1].toFixed(2);
-    //   temp[2]=this.data.eyeDistance[1].toFixed(2);
-    // }
   },
-  end:function(e){
+  touchEnd:function(e){
     let x=e.changedTouches[0].pageX;
     let y=e.changedTouches[0].pageY;
     this.setData({
-      isRun1:true,
+      'IsRun[1]':true,
       X1:x,
       Y1:y,
     })
   },
-
-  end_1:function(e){
-    // let temp;
-    let x=e.changedTouches[0].pageX;
-    let y=e.changedTouches[0].pageY;
-    this.setData({
-      isRun1:true,
-      X2:x,
-      Y2:y,
-    })
-    let temp={touches:[{pageX:e.changedTouches[0].pageX,
-                        pageY:e.changedTouches[0].pageY}]};
-    this.computerPosition(temp,1);
-  },
   
-  
-  clickThing:function(e){
-    let heightContainer=this.data.heightContainer;
+  onClick:function(e){
     let id=e.currentTarget.dataset.id;
-    this.data.index=id;
     let newScale;
     let scaleWidth;
     let scaleHeight;
+    let that = this;
+    this.data.index=id;
     switch(id)
     {
       case '1':
         this.setData({
-          isRun:!this.data.isRun,
+          'isRun[0]':!this.data.isRun[0],
         })
-        console.log("按钮1")
-        if(!this.data.isRun){
+        if(!this.data.isRun[0]){
           wx.showToast({
             title: '已固定',
             icon:'none',
             duration:1000,
           })
-        }
-        else{
+        }else{
           wx.showToast({
             title: '解除固定',
             icon:'none',
@@ -528,14 +482,12 @@ Page({
         }
         break;
       case '2':
-        var that = this;
         wx.chooseImage({
           count: 1, // 默认9
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            console.log(res)
             that.setData({
               tempFilePaths:res.tempFilePaths
             })
@@ -545,10 +497,9 @@ Page({
         })
         break;
       case '3':
-        if(this.data.isRun)
-        {
-          newScale = this.data.scale + 0.05
-          // 为了防止缩放得太大，所以scale需要限制，同理最小值也是
+        if(this.data.isRun[0]){
+            newScale = this.data.scale + 0.05
+            // 为了防止缩放得太大，所以scale需要限制，同理最小值也是
             scaleWidth = newScale * this.data.baseWidth + 'px'
             scaleHeight = newScale * this.data.baseHeight + 'px'
             this.setData({
@@ -559,8 +510,7 @@ Page({
         }
         break;
       case '4':
-        if(this.data.isRun)
-        {
+        if(this.data.isRun[0]){
           newScale = this.data.scale - 0.05
           // 为了防止缩放得太大，所以scale需要限制，同理最小值也是
             scaleWidth = newScale * this.data.baseWidth + 'px'
@@ -575,6 +525,10 @@ Page({
       default:
     }
   },
+  onDrawPoint(){
+    ctx=this.drawCrossLine()
+    // ctx.
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -587,10 +541,9 @@ Page({
             scrollHeight: res.screenHeight,
         });
       }
-  })
-  this.drawEyePupil()
+    })
+    this.drawEyePupil();
   },
-  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
