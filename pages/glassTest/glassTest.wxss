@@ -98,9 +98,11 @@ input{
   z-index: 1000;
 }
 .canvasVice{
-  left:28%;
+  left: 100%;
+  width:100%;
+  height:100%;
   position:absolute;
-  z-index: inherit;
+  /* display: none; */
 }
 .canvasContainer{
   width: 85vw;

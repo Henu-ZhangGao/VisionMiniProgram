@@ -1,21 +1,20 @@
-<!--pages/glassTest/glassTest.wxml-->
+<!-- pages/glassTest/glassTest.wxml -->
 <wxs module="number" src="../../utils/number.wxs"></wxs>
-
 <view bindtouchmove='{{isRun[0]&&isRun[1]?"touchmoveCallback":""}}' bindtouchstart='{{isRun[0]&&isRun[1]?"touchstartCallback":""}}' class="container" style="padding:0px;height:100vh;width:100vw;">
   <view style="height:100%;width:100%;" class="imgbgContainer">
-  <!-- hidden="{{isDisappear}}"> -->
+    <!-- hidden="{{isDisappear}}"> -->
     <scroll-view scroll-y="true" scroll-x="true" style="height:100%;width:100%;z-index: inherit;">
       <canvas type="2d" class="canvasVice" id="eyePupuil"></canvas>
-      <image binderror="errImg" src="{{tempFilePaths}}" style="margin-top:{{y}}px;margin-left:{{x}}px;width:{{scaleWidth}};height:{{scaleHeight}};transform:rotate({{rotate}}deg);" bindload="imgload"></image>
-  </scroll-view>
+      <image binderror="errImg" src="{{tempFilePaths[1]}}" style="margin-top:{{y}}px;margin-left:{{x}}px;width:{{scaleWidth}};height:{{scaleHeight}};transform:rotate({{rotate}}deg);" bindload="imgload"></image>
+    </scroll-view>
   </view>
   <view hidden="{{(isHidden||!change[1])||(!isHidden&&!change[0])?true:false}}" style="position:absolute;top:25%;width:60%;height:50%;z-index:1;">
-    <canvas canvas-id="ruler" id="ruler" class="canvas"/>
+    <canvas canvas-id="ruler" id="ruler" class="canvas" />
   </view>
   <view hidden="{{(isHidden&&change[1])?false:true}}" style="position:absolute;top:20%;left:12.7%;width:59.5%;height:45%;z-index:1000;">
-    <canvas canvas-id="ruler_" class="canvas"/>
+    <canvas canvas-id="ruler_" class="canvas" />
   </view>
-<!-- <image bindload="imageOnload" src="{{tempFilePaths}}" bindtap="bindTouchMove"></image> -->
+  <!-- <image bindload="imageOnload" src="{{tempFilePaths}}" bindtap="bindTouchMove"></image> -->
   <view class="col" style="height:100vh;">
     <!-- <movable-area style="z-index:-1" class="imgbgContainer">
       <movable-view style="height:auto;width:auto;" direction="all">
@@ -23,14 +22,17 @@
       </movable-view>
     </movable-area> -->
     <view class="row" style="height:20%;width:100%;">
-      <view hidden="{{!isHidden}}" class="textContainer"><text>镜框宽(mm):</text><input placeholder-class="placeholder" placeholder="请输入值" bindinput="changeWidth" value="{{widthContainer}}" class="text"/></view>
+      <view hidden="{{!isHidden}}" class="textContainer">
+        <text>镜框宽(mm):</text>
+        <input placeholder-class="placeholder" placeholder="请输入值" bindinput="changeWidth" value="{{widthContainer}}" class="text" />
+      </view>
       <view hidden="{{!isHidden}}" class="textContainer">
         <text>瞳间距(mm):</text>
         <text class="text">{{number.toFix((heightPupil[0][1]+heightPupil[1][1]))}}mm</text>
       </view>
       <view hidden="{{isHidden}}" class="textContainer">
         <text>镜框高:</text>
-        <input placeholder="请输入值" bindinput="changeHeight" class="text " value="{{heightContainer}}"/>
+        <input placeholder="请输入值" bindinput="changeHeight" class="text " value="{{heightContainer}}" />
       </view>
       <view hidden="{{isHidden}}" class="textContainer">
         <text>瞳高:</text>
@@ -38,29 +40,27 @@
       </view>
       <view hidden="{{isHidden}}" class="textContainer">
         <text>校准偏置:</text>
-        <input placeholder="请输入值" type="text" bindblur="changeBias" class="text" value="{{biasValue}}"/>
+        <input placeholder="请输入值" type="text" bindblur="changeBias" class="text" value="{{biasValue}}" />
       </view>
       <!-- <button hidden="{{isHidden}}" bindtap="save" style="width:10%;" class="btnTop {{isDisappear?'btn1':''}}">{{change?str1:str2}}</button> -->
     </view>
     <view class="canvasContainer {{!isHidden?'col':'row'}}" style="height:{{isHidden?60:80}}%;flex-direction:{{!isHidden?'column':'row-reverse'}}">
       <view style="color:green;font-size:1em;width:10%;">
-        <text wx:if="{{!isHidden}}">{{number.toFix(heightContainer/10)}}cm</text><text wx:if="{{isHidden}}">{{number.toFix(heightPupil[1][1]/10)}}cm</text>
+        <text wx:if="{{!isHidden}}">{{number.toFix(heightContainer/10)}}cm</text>
+        <text wx:if="{{isHidden}}">{{number.toFix(heightPupil[1][1]/10)}}cm</text>
       </view>
       <movable-area hidden="{{(!isHidden||!change[1])&&(isHidden||!change[0])}}" class="moveContainer moveArea2">
         <!-- <image hidden="{{isHidden}}" mode="bottom" style="width:10%;height:100%;" src="http://139.196.151.36:8080/img/calibration.png"/> -->
-        
         <!-- <text hidden="{{isHidden}}" style="position:absolute;transform: rotate(-90deg);">{{number.toFix(heightPupil[0]/10)}}cm</text> -->
-
         <movable-view data-id="left" hidden="{{isHidden}}" bindtouchstart="touchStart" bindtouchend="touchEnd" bindchange="touchMove" direction="vertical" class="imgContainer">
           <image src="{{url[2]}}" class="img"></image>
         </movable-view>
-        <!--上面7行 不要用三目运算符，direction无法判断 -->
+        <!-- 上面7行 不要用三目运算符，direction无法判断 -->
       </movable-area>
       <movable-area wx:if="{{(isHidden&&change[1])||(!isHidden&&change[0])}}" class="moveContainer moveArea1">
         <!-- <view style="width:100%;height:10%;margin-top:20%;"><image hidden="{{!isHidden}}" mode="aspectFill" style="width: 100%; height: 100%;" src="http://139.196.151.36:8080/img/calibration_1.png"/>
         </view> -->
         <!-- <view wx:if="{{isHidden}}" style="display:flex;justify-content:space-between;"><text>{{number.toFix(heightPupil[1]/10)}}cm</text><text>0cm</text><text>{{number.toFix(heightPupil_1[1]/10)}}cm</text></view> -->
-        
         <movable-view hidden="{{!isHidden}}" data-id="right" bindtouchstart="touchStart" bindtouchend="touchEnd" bindchange="touchMove" direction="horizontal" class="imgContainer_">
           <image src="{{url[3]}}" class="img"></image>
         </movable-view>
@@ -69,37 +69,46 @@
         </movable-view>
       </movable-area>
       <view style="width:{{!isHidden?'100%':'70%'}};height:100%;">
-        <!-- hidden="{{isDisappear}}"  -->
+        <!-- hidden="{{isDisappear}}" -->
         <image src='{{isHidden?url[1]:url[0]}}' class="imgbg"></image>
       </view>
-      
-      <view style="color:green;font-size:1em;width:10%;"><text wx:if="{{!isHidden}}">0cm</text><text wx:if="{{isHidden}}">{{number.toFix(heightPupil[0][1]/10)}}cm</text></view>
+      <view style="color:green;font-size:1em;width:10%;">
+        <text wx:if="{{!isHidden}}">0cm</text>
+        <text wx:if="{{isHidden}}">{{number.toFix(heightPupil[0][1]/10)}}cm</text>
+      </view>
     </view>
     <view class="row" style="height:20%;">
-     <slider hidden="{{isDisappear}}" bindchanging='{{isRun[0]?"rotateImg":""}}' style="width:80%" min="-90" max="90" value="0"/>
+      <slider hidden="{{isDisappear}}" bindchanging='{{isRun[0]?"rotateImg":""}}' style="width:80%" min="-90" max="90" value="0" />
     </view>
   </view>
   <view class="col" style="width:15vw;height:100vh;">
-  <view class="col" style="height:30%;">
-    <view class="row" style="height:50%;">
-      <button bindtap="location" class="btnTop">换位</button>
+    <view class="col" style="height:30%;">
+      <view class="row" style="height:50%;">
+        <button bindtap="location" class="btnTop">换位</button>
+      </view>
+      <view class="row" style="height:50%;">
+        <button bindtap="onSave" class="btnTop {{isDisappear?'btn1':''}}">
+          {{(isHidden&&change[1])||(!isHidden&&change[0])?str[0]:str[1]}}
+        </button>
+      </view>
     </view>
-    <view class="row" style="height:50%;" >
-      <button bindtap="onSave" class="btnTop {{isDisappear?'btn1':''}}">{{(isHidden&&change[1])||(!isHidden&&change[0])?str[0]:str[1]}}</button>
-    </view>
-  </view>
-  <view class="btnGroup">
-        <block wx:for="{{btn_1}}">
-        <button class="btn {{!isRun[0]&&index==0?'btn1':''}}" data-id="{{item.id}}" bindtap="onClick" style="width:100%;border-radius: 50%;">{{item.text}}</button>
-        </block>
+    <view class="btnGroup">
+      <block wx:for="{{btn_1}}">
+        <button class="btn {{!isRun[0]&&index==0?'btn1':''}}" data-id="{{item.id}}" bindtap="onClick" style="width:100%;border-radius: 50%;">
+          {{item.text}}
+        </button>
+      </block>
     </view>
   </view>
 </view>
 
+<!-- 左边按钮定位 -->
 <view class='btnFloat'>
-  <button bindtap="onDrawPoint" class="btn" style="margin: 0%;width: 100%;height:100%;font-size: 1em;">定位</button>
+  <button bindtap="onDrawPoint" class="btn" style="margin: 0%;width: 100%;height:100%;font-size: 1em;">
+    定位
+  </button>
 </view>
-  <!-- <view hidden="{{isHidden}}" wx:if="{{isShow}}" class="tableContainer">
+<!-- <view hidden="{{isHidden}}" wx:if="{{isShow}}" class="tableContainer">
     <view class="su-th">
       <view wx:key="*this" wx:for="{{tableHead}}">{{item}}</view>
     </view>
@@ -107,8 +116,8 @@
       <view class="su-td" wx:key="*this" wx:for="{{tableData}}">{{item}}</view>
     </view>
   </view> -->
-  <!-- 显示数据的图层 -->
-  <!-- <view hidden="{{!isHidden}}" class="tableContainer_1">
+<!-- 显示数据的图层 -->
+<!-- <view hidden="{{!isHidden}}" class="tableContainer_1">
     <view class="table">
       <view wx:for="{{tableHead_1}}">
         <text>{{item}}</text>
@@ -120,7 +129,7 @@
       </view>
     </view>
   </view> -->
-  <!-- <view class="tableContainer_1" wx:if="{{isShow}}" hidden="{{!isHidden}}">
+<!-- <view class="tableContainer_1" wx:if="{{isShow}}" hidden="{{!isHidden}}">
     <view class="su-th">
       <view wx:key="*this" wx:for="{{column}}">{{item}}</view>
     </view>
@@ -129,5 +138,3 @@
     </view>
   </view> -->
 <!-- 显示数据的图层 -->
-
-
