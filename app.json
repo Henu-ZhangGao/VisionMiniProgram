@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/glassTest/glassTest",
     "pages/index/index",
+    "pages/glassTest/glassTest",
     "pages/login/login",
     "pages/logs/logs",
     "pages/camera/camera",

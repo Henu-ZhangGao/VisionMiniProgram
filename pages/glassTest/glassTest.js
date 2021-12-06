@@ -1,7 +1,4 @@
 // pages/glassTest/glassTest.js
-var that;
-var deltaX = 0;
-var minValue = 1;
 let app = getApp();
 Page({
   /**
@@ -40,7 +37,6 @@ Page({
     y: 0,
     _xMove: 0,
     _yMove: 0,
-    scrollHeight: 0,
     isShow: true,
     X1: 0,
     X2: 0,
@@ -170,13 +166,12 @@ Page({
     this.onDrawRuler(
       context,
       this.data.res[0].top,
-      this.data.res[0].bottom - this.data.navBarHeight - 10,
+      this.data.res[0].bottom - this.data.navBarHeight+40,
       148.5 / this.data.heightContainer,
-      300,
-      310,
+      250,
+      260,
       true
     );
-    console.log(this.data.res[0]);
     context.draw();
   },
   imgload(e) {
@@ -186,15 +181,25 @@ Page({
       scaleWidth: this.data.baseWidth + "px", //给图片设置宽度
       scaleHeight: this.data.baseHeight + "px", //给图片设置高度
     });
+    console.log(e.detail)
   },
   upload(path) {
     let that = this;
+    wx.getImageInfo({
+      src:path,
+      success(res){
+        that.setData({
+          baseWidth:res.width,
+          baseHeight:res.height,
+        })
+      }
+    })
     wx.showToast({
       icon: "loading",
       title: "正在上传",
     }),
       wx.uploadFile({
-        url: "https://www.heshuo.wang:5000/FileUploadServlet",
+        url: "https://heshuo.wang:5000/FileUploadServlet",
         filePath: path[0],
         name: "pic",
         header: { "Content-Type": "multipart/form-data" },
@@ -479,8 +484,8 @@ Page({
         let dpr = wx.getSystemInfoSync().pixelRatio;
         let img = canvas.createImage();
         img.src = this.data.tempFilePaths[0];
-        canvas.width = res[0].width * dpr;
-        canvas.height = res[0].height * dpr;
+        canvas.width = this.data.baseWidth * dpr;
+        canvas.height =this.data.baseHeight* dpr;
         ctx.scale(dpr, dpr);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         img.onload = () => {
@@ -602,20 +607,21 @@ Page({
       })
       .exec((res) => {
         let canvas = res[0].node;
-        // let ctx = canvas.getContext("2d");
-        // this.data.tempFilePaths[1]=canvas.toDataURL("../../img");
+        let dpr = wx.getSystemInfoSync().pixelRatio;
         wx.canvasToTempFilePath({
           fileType:'jpg',
           x:0,
           y:0,
-          width:this.data.baseWidth,
-          height:this.data.baseHeight,
+          width:this.data.baseWidth*dpr,
+          height:this.data.baseHeight*dpr,
           destWidth:this.data.baseWidth,
           destHeight:this.data.baseHeight,
           canvas:canvas,
           success:function(res){
             that.setData({
               "tempFilePaths[1]":res.tempFilePath,
+              // scaleWidth:that.data.baseWidth+'px',
+              // scaleHeight:that.data.baseHeight+'px',
             })
             console.log(res.tempFilePath)
           }
@@ -628,14 +634,6 @@ Page({
   onLoad: function (options) {
     this.getDomInfo(".moveArea2");
     this.getDomInfo(".moveArea1");
-    wx.getSystemInfo({
-      success: (res) => {
-        this.setData({
-          scrollHeight: res.screenHeight,
-        });
-      },
-    });
-    this.drawEyePupil();
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -648,17 +646,6 @@ Page({
       duration: 2000,
       success: function (res) {},
     });
-    var context = wx.createCanvasContext("ruler_");
-    this.onDrawRuler_(
-      context,
-      0.3 * app.globalData.Width,
-      0.815 * app.globalData.Width,
-      429.6 / this.data.widthContainer,
-      80,
-      90,
-      true
-    );
-    context.draw();
   },
   onDrawRuler: function (
     context,
