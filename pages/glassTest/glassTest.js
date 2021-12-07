@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    ctx:null,
+    ctx: null,
     navBarHeight: 0,
     str: ["保存", "重测"],
     btn_1: [
@@ -55,7 +55,7 @@ Page({
       "http://139.196.151.36:8080/img/_red.png",
       "http://139.196.151.36:8080/img/_yellow.png",
     ],
-    tempFilePaths: ["http://139.196.151.36:8080/img/glassesTest.jpg",""]
+    tempFilePaths: ["", ""],
     // tableHead:['左瞳高(mm)','右瞳高(mm)','落差(mm)'],
     // tableData:['0.00','0.00','0.00'],
     // column:['左眼(mm)','右眼(mm)','瞳距差(mm)'],
@@ -72,7 +72,8 @@ Page({
     this.setData({
       biasValue: bias,
     });
-    this.drawEyePupil();
+    // this.drawEyePupil();
+    this.drawCrossLine();
   },
   computerPosition: function (e, eyeLocation) {
     if (!this.data.isHidden) {
@@ -166,7 +167,7 @@ Page({
     this.onDrawRuler(
       context,
       this.data.res[0].top,
-      this.data.res[0].bottom - this.data.navBarHeight+40,
+      this.data.res[0].bottom - this.data.navBarHeight + 40,
       148.5 / this.data.heightContainer,
       250,
       260,
@@ -178,29 +179,28 @@ Page({
     this.setData({
       baseWidth: e.detail.width, //获取图片真实宽度,一号线和二号线的差距()
       baseHeight: e.detail.height, //获取图片真实高度
-      scaleWidth: this.data.baseWidth + "px", //给图片设置宽度
-      scaleHeight: this.data.baseHeight + "px", //给图片设置高度
+      scaleWidth: e.detail.width + "px", //给图片设置宽度
+      scaleHeight: e.detail.height + "px", //给图片设置高度
     });
-    console.log(e.detail)
   },
   upload(path) {
     let that = this;
     wx.getImageInfo({
-      src:path,
-      success(res){
+      src: path,
+      success(res) {
         that.setData({
-          baseWidth:res.width,
-          baseHeight:res.height,
-        })
-      }
-    })
+          baseWidth: res.width,
+          baseHeight: res.height,
+        });
+      },
+    });
     wx.showToast({
       icon: "loading",
       title: "正在上传",
     }),
       wx.uploadFile({
         url: "https://heshuo.wang:5000/FileUploadServlet",
-        filePath: path[0],
+        filePath: path,
         name: "pic",
         header: { "Content-Type": "multipart/form-data" },
         success: function (res) {
@@ -214,10 +214,14 @@ Page({
             return;
           }
           let list = res.data;
+          let temp;
           console.log(list);
+          if (list == []) {
+            temp = [0, 0, 0, 0];
+          }
           var reg = /\d+\.?\d/gm;
           list = list.match(reg);
-          let temp = [
+          temp = [
             parseFloat(list[0]),
             parseFloat(list[1]),
             parseFloat(list[2]),
@@ -228,7 +232,6 @@ Page({
           });
         },
         fail: function (e) {
-          console.log(e);
           wx.showModal({
             title: "提示",
             content: "上传失败",
@@ -441,6 +444,9 @@ Page({
         let canvas = res[0].node;
         let ctx = canvas.getContext("2d");
         let r = 10;
+
+        ctx.clearRect(0, 0, res[0].width / 2 - 1, res[0].height);
+        ctx.clearRect(res[0].width / 2 + 1, 0, res[0].width, res[0].height);
         ctx.beginPath();
         ctx.strokeStyle = "white";
         ctx.fillStyle = "white";
@@ -451,6 +457,17 @@ Page({
           eyePupil[3] = this.data.eyePupil[3];
           eyePupil[2] = this.data.eyePupil[2];
         }
+        this.data.eyePupil = eyePupil;
+        ctx.beginPath();
+        ctx.moveTo(eyePupil[0], eyePupil[1] - r);
+        ctx.lineTo(eyePupil[0], eyePupil[1] + r);
+        ctx.moveTo(eyePupil[0] - r, eyePupil[1]);
+        ctx.lineTo(eyePupil[0] + r, eyePupil[1]);
+        ctx.stroke();
+        ctx.arc(eyePupil[0], eyePupil[1], r / 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
+
         ctx.beginPath();
         ctx.moveTo(eyePupil[2], eyePupil[3] - r);
         ctx.lineTo(eyePupil[2], eyePupil[3] + r);
@@ -458,14 +475,6 @@ Page({
         ctx.lineTo(eyePupil[2] + r, eyePupil[3]);
         ctx.stroke();
         ctx.arc(eyePupil[2], eyePupil[3], r / 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.closePath();
-        ctx.moveTo(eyePupil[0], eyePupil[1] - r);
-        ctx.lineTo(eyePupil[0], eyePupil[1] + r);
-        ctx.moveTo(eyePupil[0] - r, eyePupil[1]);
-        ctx.lineTo(eyePupil[0] + r, eyePupil[1]);
-        ctx.stroke();
-        ctx.arc(eyePupil[0], eyePupil[1], r / 3, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
       });
@@ -483,15 +492,16 @@ Page({
         let ctx = canvas.getContext("2d");
         let dpr = wx.getSystemInfoSync().pixelRatio;
         let img = canvas.createImage();
-        img.src = this.data.tempFilePaths[0];
+
         canvas.width = this.data.baseWidth * dpr;
-        canvas.height =this.data.baseHeight* dpr;
+        canvas.height = this.data.baseHeight * dpr;
         ctx.scale(dpr, dpr);
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         img.onload = () => {
-          ctx.drawImage(img, 0, 0, this.data.baseWidth,this.data.baseHeight);
-          console.log(img)
+          ctx.drawImage(img, 0, 0, this.data.baseWidth, this.data.baseHeight);
         };
+        img.src = this.data.tempFilePaths[0];
       });
   },
   rotateImg: function (e) {
@@ -502,11 +512,10 @@ Page({
 
   touchStart: function (e) {
     this.setData({
-      "IsRun[1]": false,
+      "isRun[1]": false,
     });
   },
   touchMove: function (e) {
-    console.log(e.detail.x);
     if (e.currentTarget.dataset.id == "left") {
       this.computerPosition(e, 0);
     } else {
@@ -517,7 +526,7 @@ Page({
     let x = e.changedTouches[0].pageX;
     let y = e.changedTouches[0].pageY;
     this.setData({
-      "IsRun[1]": true,
+      "isRun[1]": true,
       X1: x,
       Y1: y,
     });
@@ -547,22 +556,39 @@ Page({
             icon: "none",
             duration: 1000,
           });
+          const query = wx.createSelectorQuery();
+          query
+            .select("#eyePupuil")
+            .fields({
+              node: true,
+              size: true,
+            })
+            .exec((res) => {
+              let canvas = res[0].node;
+              let ctx = canvas.getContext("2d");
+              ctx.clearRect(0, 0, res[0].width / 2 - 1, res[0].height);
+              ctx.clearRect(
+                res[0].width / 2 + 1,
+                0,
+                res[0].width,
+                res[0].height
+              );
+            });
         }
         break;
       case "2":
         wx.chooseImage({
           count: 1, // 默认9
-          sizeType: ["original", "compressed"], // 可以指定是原图还是压缩图，默认二者都有
+          // mediaType: ["image"],
           sourceType: ["album", "camera"], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            console.log(res.tempFilePaths[0])
             that.setData({
-              "tempFilePaths[0]": res.tempFilePaths[0],
+              // "tempFilePaths[0]": res.tempFiles[0].tempFilePath,
               "tempFilePaths[1]": res.tempFilePaths[0],
             });
-            that.drawEyePupil();
-            that.upload(res.tempFilePaths);
+            // that.drawEyePupil();
+            // that.upload(res.tempFiles[0].tempFilePath);
           },
         });
         break;
@@ -596,37 +622,46 @@ Page({
     }
   },
   onDrawPoint() {
-    let that = this;
-    this.drawCrossLine();
-    const query = wx.createSelectorQuery();
-    query
-      .select("#eyePupuil")
-      .fields({
-        node: true,
-        size: true,
-      })
-      .exec((res) => {
-        let canvas = res[0].node;
-        let dpr = wx.getSystemInfoSync().pixelRatio;
-        wx.canvasToTempFilePath({
-          fileType:'jpg',
-          x:0,
-          y:0,
-          width:this.data.baseWidth*dpr,
-          height:this.data.baseHeight*dpr,
-          destWidth:this.data.baseWidth,
-          destHeight:this.data.baseHeight,
-          canvas:canvas,
-          success:function(res){
-            that.setData({
-              "tempFilePaths[1]":res.tempFilePath,
-              // scaleWidth:that.data.baseWidth+'px',
-              // scaleHeight:that.data.baseHeight+'px',
-            })
-            console.log(res.tempFilePath)
-          }
-        })
+    if (this.data.isRun[0]) {
+      wx.showToast({
+        title: "请先固定再进行定位",
+        icon: "none",
+        duration: 1000,
       });
+      return;
+    }
+    this.drawCrossLine();
+    //
+
+    // let that = this;
+    // const query = wx.createSelectorQuery();
+    // query
+    //   .select("#eyePupuil")
+    //   .fields({
+    //     node: true,
+    //     size: true,
+    //   })
+    //   .exec((res) => {
+    //     let canvas = res[0].node;
+    //     let ctx = canvas.getContext("2d");
+    //     let dpr = wx.getSystemInfoSync().pixelRatio;
+
+    //     wx.canvasToTempFilePath({
+    //       fileType: "jpg",
+    //       x: 0,
+    //       y: 0,
+    //       width: this.data.baseWidth * dpr,
+    //       height: this.data.baseHeight * dpr,
+    //       destWidth: this.data.baseWidth,
+    //       destHeight: this.data.baseHeight,
+    //       canvas: canvas,
+    //       success: function (res) {
+    //         that.setData({
+    //           "tempFilePaths[1]": res.tempFilePath,
+    //         });
+    //       },
+    //     });
+    //   });
   },
   /**
    * 生命周期函数--监听页面加载
@@ -644,8 +679,38 @@ Page({
       title: "通过在左上角输入值,利用绿色校准线来求出瞳高和瞳距",
       icon: "none",
       duration: 2000,
-      success: function (res) {},
     });
+    let temp = [];
+    let that = this;
+    let size;
+    let query = wx.createSelectorQuery();
+    query
+      .select("#eyePupuil")
+      .fields({
+        size: true,
+        node: true,
+      })
+      .exec((res) => {
+        size = res[0];
+        temp = temp.concat(
+          size.width * (1 / 2 - 1 / 6),
+          (size.height * 1) / 3,
+          size.width * (1 / 2 + 1 / 6),
+          (size.height * 1) / 3
+        );
+        that.data.eyePupil = temp;
+        let dpr = wx.getSystemInfoSync().pixelRatio;
+        let canvas = res[0].node;
+        let ctx = canvas.getContext("2d");
+        canvas.width = res[0].width * dpr;
+        canvas.height = res[0].height * dpr;
+        ctx.scale(dpr, dpr);
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 2;
+        ctx.moveTo(res[0].width / 2, 0);
+        ctx.lineTo(res[0].width / 2, res[0].height);
+        ctx.stroke();
+      });
   },
   onDrawRuler: function (
     context,
