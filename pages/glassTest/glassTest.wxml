@@ -7,8 +7,9 @@
       <image binderror="errImg" src="{{tempFilePaths[1]}}" style="margin-top:{{y}}px;margin-left:{{x}}px;width:{{scaleWidth}};height:{{scaleHeight}};transform:rotate({{rotate}}deg);" bindload="imgload"></image>
     </scroll-view>
   </view>
+  <!-- 尺子canvas图 -->
   <view hidden="{{(isHidden||!change[1])||(!isHidden&&!change[0])?true:false}}" style="position:absolute;top:25%;width:60%;height:50%;z-index:1;">
-    <canvas canvas-id="ruler" id="ruler" class="canvas" />
+    <canvas canvas-id="ruler" type="2d" id="ruler" class="canvas" />
   </view>
   <view hidden="{{(isHidden&&change[1])?false:true}}" style="position:absolute;top:20%;left:12.7%;width:59.5%;height:45%;z-index:1000;">
     <canvas canvas-id="ruler_" class="canvas" />
@@ -41,8 +42,12 @@
         <text class="text">{{number.toFix(heightPupil[0][0])}}mm</text>
       </view>
       <view hidden="{{isHidden}}" class="textContainer">
-        <text>校准偏置:</text>
-        <input placeholder="请输入值" type="text" bindblur="changeBias" class="text" value="{{biasValue}}" />
+        <button class="btn btnSmall" data-status="-" bindtap="changeBias" style="width:5%;">-</button>
+        <!-- <input placeholder="请输入值" type="text" bindblur="changeBias" class="text" value="{{biasValue}}" /> -->
+        <picker mode="selector" bindchange="changePosition" value="{{eyePositionIndex}}" range="{{eyePosition}}">
+          <text class="text">{{eyePosition[eyePositionIndex]}}</text>
+        </picker>
+        <button class="btn btnSmall" data-status="+" bindtap="changeBias" style="width:5%;">+</button>
       </view>
       <!-- <button hidden="{{isHidden}}" bindtap="save" style="width:10%;" class="btnTop {{isDisappear?'btn1':''}}">{{change?str1:str2}}</button> -->
     </view>
@@ -106,7 +111,7 @@
 
 <!-- 左边按钮定位 -->
 <view class='btnFloat'>
-  <button bindtap="onDrawPoint" class="btn" style="margin: 0%;width: 100%;height:100%;font-size: 1em;">
+  <button bindtap="onDrawPoint" class="btn btnSmall" style="width:100%;height:100%;">
     定位
   </button>
 </view>

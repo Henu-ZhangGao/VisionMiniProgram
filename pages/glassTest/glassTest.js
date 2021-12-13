@@ -8,6 +8,8 @@ Page({
     ctx: null,
     navBarHeight: 0,
     str: ["保存", "重测"],
+    eyePositionIndex: 0,
+    eyePosition: ["左", "右", "双"],
     btn_1: [
       { id: "1", text: "固定" },
       { id: "2", text: "照片" },
@@ -61,14 +63,25 @@ Page({
     // column:['左眼(mm)','右眼(mm)','瞳距差(mm)'],
     // tableContent:['0.00','0.00','0.00'],
   },
+  changePosition(e) {
+    this.setData({
+      eyePositionIndex: e.detail.value,
+    });
+  },
   /*
     params:
       eyeLocation:眼睛编号
       e:Dom的信息集合
   */
   changeBias: function (e) {
-    let arr = e.detail.value.split(",");
-    let bias = [parseFloat(arr[0]), parseFloat(arr[1]), parseFloat(arr[2])];
+    let arr = e.currentTarget.dataset.status;
+    let b;
+    if (arr == "-") {
+      b = 10;
+    } else {
+      b = -10;
+    }
+    let bias = [b, 0, this.data.eyePositionIndex];
     this.setData({
       biasValue: bias,
     });
@@ -77,9 +90,10 @@ Page({
   },
   computerPosition: function (e, eyeLocation) {
     if (!this.data.isHidden) {
+      console.log(e.detail.y);
       this.setData({
         ["heightPupil[" + eyeLocation + "][0]"]:
-          (1 - e.detail.y / 149.8) * this.data.heightContainer,
+          (1 - e.detail.y / this.data.areaHeight) * this.data.heightContainer,
         // 2.3*(this.data.res[0].top+this.data.res[0].height-this.data.navBarHeight-e.touches[0].pageY)/(app.globalData.Height-this.data.navBarHeight)*this.data.heightContainer,
         "eyeDistance[0]":
           this.data.heightPupil[1][0] - this.data.heightPupil[0][0],
@@ -113,12 +127,17 @@ Page({
     let that = this;
     var temp = this.data.res;
     let query = wx.createSelectorQuery();
-    query.select(ClassOrId).boundingClientRect();
-    query.exec(function (res) {
-      //res就是 该元素的信息 数组
-      temp.push(res[0]);
-      that.data.res = temp;
-    });
+    query
+      .select(ClassOrId)
+      .fields({
+        size: true,
+        rect: true,
+      })
+      .exec((res) => {
+        //res就是 该元素的信息 数组
+        temp.push(res[0]);
+        that.data.res = temp;
+      });
   },
   changeImage: function (e) {
     this.setData({
@@ -139,6 +158,7 @@ Page({
     }
   },
   changeHeight: function (e) {
+    let that=this;
     let value = e.detail.value;
     this.setData({
       heightContainer: value,
@@ -163,17 +183,20 @@ Page({
         this.data.eyeDistance[0].toFixed(2),
       ],
     });
-    var context = wx.createCanvasContext("ruler");
-    this.onDrawRuler(
-      context,
-      this.data.res[0].top,
-      this.data.res[0].bottom - this.data.navBarHeight + 40,
-      148.5 / this.data.heightContainer,
-      250,
-      260,
-      true
-    );
-    context.draw();
+    wx.createSelectorQuery().select("#ruler").fields({
+      size: true,
+      node: true,
+    }).exec((res)=>{
+      let canvas=res[0].node;
+      canvas.width = res[0].width;
+      canvas.height = res[0].height; 
+      that.onDrawRuler(canvas.getContext("2d"),0,
+        this.data.areaHeight,
+        this.data.areaHeight / this.data.heightContainer,
+        250,
+        260,
+        true);
+    })
   },
   imgload(e) {
     this.setData({
@@ -305,7 +328,6 @@ Page({
     // })
   },
   changeWidth: function (e) {
-    console.log(this.data.res);
     this.setData({
       widthContainer: e.detail.value,
     });
@@ -669,6 +691,18 @@ Page({
   onLoad: function (options) {
     this.getDomInfo(".moveArea2");
     this.getDomInfo(".moveArea1");
+    let query = wx.createSelectorQuery();
+    query.select(".moveArea2").fields({
+      size: true,
+    });
+    query
+      .select(".imgContainer")
+      .fields({
+        size: true,
+      })
+      .exec((res) => {
+        this.data.areaHeight = res[0].height - res[1].height;
+      });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -721,9 +755,11 @@ Page({
     lineEnd,
     isLeft
   ) {
+    console.log(onemm)
     var conunt = 0;
     var textPx = isLeft ? lineEnd + 3 : lineStart - 10;
-    for (var i = start + 7; i < end; i += onemm) {
+    context.fontSize=10;
+    for (var i = start-5; i <end; i += onemm) {
       var temp = 0;
       if (conunt % 10 == 0) {
         temp += 10;
@@ -734,7 +770,6 @@ Page({
       }
       var tempLineStart = isLeft ? lineStart : lineStart - temp;
       var tempLineEnd = isLeft ? lineEnd + temp : lineEnd;
-      context.setFontSize(10);
       context.moveTo(tempLineStart, end - i);
       context.lineTo(tempLineEnd, end - i);
       context.stroke();
