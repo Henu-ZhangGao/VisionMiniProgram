@@ -8,7 +8,7 @@ Page({
     diopters:0,
     formHidden:false,
     age:[],
-    url:"http://139.196.151.36:8080/img/eye_base_0.png",
+    url:"http://119.45.23.48:8080/img/eye_base_0.png",
     degress:0,
     index:0,
     pageTimes:0,
@@ -114,18 +114,18 @@ Page({
     if(sum>1000)
     {
       this.setData({
-        url:"http://139.196.151.36:8080/img/eye_base_2.png",
+        url:"http://119.45.23.48:8080/img/eye_base_2.png",
       })
     }
     else if(300<sum<=800)
     {
       this.setData({
-        url:"http://139.196.151.36:8080/img/eye_base_1.png",
+        url:"http://119.45.23.48:8080/img/eye_base_1.png",
       })
     }
     else{
       this.setData({
-        url:"http://139.196.151.36:8080/img/eye_base_0.png",
+        url:"http://119.45.23.48:8080/img/eye_base_0.png",
       })
     }
   },

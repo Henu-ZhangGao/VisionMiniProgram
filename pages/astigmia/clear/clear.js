@@ -7,7 +7,7 @@ Page({
   data: {
     buttons: [{ id: 1, name:'1',str:"近视200度"}, { id: 2, name: '2',str:"散光75度"}, {id: 3, name: '3',str:"散光200度"}],
     // 按钮的设置
-    url:"http://139.196.151.36:8080/img/blackboard.jpg",
+    url:"http://119.45.23.48:8080/img/blackboard.jpg",
     str:'',
     blur:0,
   },

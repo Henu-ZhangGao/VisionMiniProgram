@@ -7,7 +7,7 @@ Page({
   data: {
     buttons: [{ id: 1, name:'弱光'}, { id: 2, name: '多云'}, {id: 3, name: '强光'}],
     // 按钮的设置
-    url:"http://139.196.151.36:8080/img/uv_1.jpg",
+    url:"http://119.45.23.48:8080/img/uv_1.jpg",
   },
   radioButtonTap: function (e) {
     let id = e.currentTarget.dataset.id
@@ -15,7 +15,7 @@ Page({
       if (this.data.buttons[i].id == id) {
         //当前点击的位置为true即选中
         this.data.buttons[i].checked = true;
-        let str="http://139.196.151.36:8080/img/uv_" + id + ".jpg"
+        let str="http://119.45.23.48:8080/img/uv_" + id + ".jpg"
         this.setData({
           url:str,
         })

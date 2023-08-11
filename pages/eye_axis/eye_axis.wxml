@@ -2,7 +2,7 @@
 <view class="container">
   <view style="flex-direction:row;width:100%">
     <view style="width:100%;">
-      <image mode="aspectFit" style="width:100%;" bindtap="bind" src="http://139.196.151.36:8080/img/eye_base_0.png">
+      <image mode="aspectFit" style="width:100%;" bindtap="bind" src="http://119.45.23.48:8080/img/eye_base_0.png">
       </image>
     </view>
     <text>眼轴和眼底
@@ -10,7 +10,7 @@
   </view>
   <view style="flex-direction:row">
     <view>
-      <image mode="aspectFit" bindtap="bind_1" src="http://139.196.151.36:8080/img/red_cross.jpg">
+      <image mode="aspectFit" bindtap="bind_1" src="http://119.45.23.48:8080/img/red_cross.jpg">
     </image>
     </view>
     <view>

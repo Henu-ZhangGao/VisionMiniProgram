@@ -7,7 +7,7 @@ Page({
   data: {
     buttons: [{ id: 1, name:'1',str:''}, { id: 2, name: '2',str:'紫外线指数8,5000小时照射'}, {id: 3, name: '3',str:'紫外线指数8,6000小时照射' }, { id: 4, name: '4',str:'紫外线指数8,8000小时照射' }],
     // 按钮的设置
-    "url":"http://139.196.151.36:8080/img/an_eye_1.jpg",
+    "url":"http://119.45.23.48:8080/img/an_eye_1.jpg",
     Str:"",
     // 改变图片的url
   },
@@ -17,7 +17,7 @@ Page({
       if (this.data.buttons[i].id == id) {
         //当前点击的位置为true即选中
         this.data.buttons[i].checked = true;
-        let str="http://139.196.151.36:8080/img/an_eye_" + id + ".jpg"
+        let str="http://119.45.23.48:8080/img/an_eye_" + id + ".jpg"
         this.setData({
           url:str,
           Str:this.data.buttons[i].str,

@@ -8,6 +8,10 @@ text {
   margin: 8% 0px;
   height: 30%;
   font-size: 0.8em;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height:10vh;
 }
 .btn1 {
   color: red;
@@ -48,8 +52,8 @@ text {
 }
 .moveArea2 {
   width: 85%;
-  height: 60%;
-  top: 20%;
+  height: 430rpx;
+  top: 135rpx;
 }
 .text {
   width: 40%;

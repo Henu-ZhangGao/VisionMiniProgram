@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    Mode: true,
     ctx: null,
     navBarHeight: 0,
     str: ["保存", "重测"],
@@ -51,11 +52,11 @@ Page({
     eyePupil: [],
     biasValue: [0, 0],
     url: [
-      "http://139.196.151.36:8080/img/rule_1.png",
-      "http://139.196.151.36:8080/img/rule.png",
-      "http://139.196.151.36:8080/img/red.png",
-      "http://139.196.151.36:8080/img/_red.png",
-      "http://139.196.151.36:8080/img/_yellow.png",
+      "http://119.45.23.48:8080/img/rule_1.png",
+      "http://119.45.23.48:8080/img/rule.png",
+      "http://119.45.23.48:8080/img/red.png",
+      "http://119.45.23.48:8080/img/_red.png",
+      "http://119.45.23.48:8080/img/_yellow.png",
     ],
     tempFilePaths: ["", ""],
     // tableHead:['左瞳高(mm)','右瞳高(mm)','落差(mm)'],
@@ -76,12 +77,17 @@ Page({
   changeBias: function (e) {
     let arr = e.currentTarget.dataset.status;
     let b;
+    let bias;
     if (arr == "-") {
       b = 10;
     } else {
       b = -10;
     }
-    let bias = [b, 0, this.data.eyePositionIndex];
+    if (this.data.Mode) {
+      bias = [b, 0, this.data.eyePositionIndex];
+    } else {
+      bias = [0, b, this.data.eyePositionIndex];
+    }
     this.setData({
       biasValue: bias,
     });
@@ -139,6 +145,12 @@ Page({
         that.data.res = temp;
       });
   },
+  changeMode: function (e) {
+    console.log(this.data.Mode);
+    this.setData({
+      Mode: !this.data.Mode,
+    });
+  },
   changeImage: function (e) {
     this.setData({
       isShow: !this.data.isShow,
@@ -158,10 +170,13 @@ Page({
     }
   },
   changeHeight: function (e) {
-    let that=this;
+    let that = this;
     let value = e.detail.value;
+    if (parseFloat(value) == NaN || value < 0) {
+      return 0;
+    }
     this.setData({
-      heightContainer: value,
+      heightContainer: parseFloat(value),
     });
     this.setData({
       "heightPupil[0][0]":
@@ -183,20 +198,26 @@ Page({
         this.data.eyeDistance[0].toFixed(2),
       ],
     });
-    wx.createSelectorQuery().select("#ruler").fields({
-      size: true,
-      node: true,
-    }).exec((res)=>{
-      let canvas=res[0].node;
-      canvas.width = res[0].width;
-      canvas.height = res[0].height; 
-      that.onDrawRuler(canvas.getContext("2d"),0,
-        this.data.areaHeight,
-        this.data.areaHeight / this.data.heightContainer,
-        250,
-        260,
-        true);
-    })
+    wx.createSelectorQuery()
+      .select("#ruler")
+      .fields({
+        size: true,
+        node: true,
+      })
+      .exec((res) => {
+        let canvas = res[0].node;
+        canvas.width = res[0].width;
+        canvas.height = res[0].height;
+        that.onDrawRuler(
+          canvas.getContext("2d"),
+          0,
+          this.data.areaHeight,
+          this.data.areaHeight / this.data.heightContainer,
+          250,
+          260,
+          true
+        );
+      });
   },
   imgload(e) {
     this.setData({
@@ -328,8 +349,13 @@ Page({
     // })
   },
   changeWidth: function (e) {
+    let that=this;
+    let value=e.detail.value
+    if (parseFloat(value) == NaN || value < 0) {
+      return 0;
+    }
     this.setData({
-      widthContainer: e.detail.value,
+      widthContainer: parseFloat(value),
     });
     this.setData({
       "heightPupil[0][1]":
@@ -349,17 +375,26 @@ Page({
     // this.setData({
     //   tableContent:[this.data.heightPupil[1].toFixed(2),this.data.heightPupil_1[1].toFixed(2),this.data.eyeDistance[1].toFixed(2)]
     // })
-    var context = wx.createCanvasContext("ruler_");
-    this.onDrawRuler_(
-      context,
-      this.data.res[1].width / 2,
-      this.data.res[1].width,
-      460 / this.data.widthContainer,
-      80,
-      90,
-      true
-    );
-    context.draw();
+    wx.createSelectorQuery()
+      .select("#ruler_")
+      .fields({
+        size: true,
+        node: true,
+      })
+      .exec((res) => {
+        let canvas = res[0].node;
+        canvas.width = res[0].width;
+        canvas.height = res[0].height;
+        that.onDrawRuler_(
+          canvas.getContext("2d"),
+          this.data.areaWidth/2,
+          this.data.areaWidth,
+          this.data.areaWidth / this.data.widthContainer,
+          50,
+          60,
+          true
+        );
+      });
   },
   onDrawRuler_: function (
     context,
@@ -383,7 +418,7 @@ Page({
       }
       var tempLineStart = isLeft ? lineStart : lineStart - temp;
       var tempLineEnd = isLeft ? lineEnd + temp : lineEnd;
-      context.setFontSize(10);
+      context.fontSize=10;
       context.moveTo(i, tempLineStart);
       context.lineTo(i, tempLineEnd);
       context.stroke();
@@ -401,7 +436,7 @@ Page({
       }
       var tempLineStart = isLeft ? lineStart : lineStart - temp;
       var tempLineEnd = isLeft ? lineEnd + temp : lineEnd;
-      context.setFontSize(10);
+      context.fontSize=10;
       context.moveTo(i, tempLineStart);
       context.lineTo(i, tempLineEnd);
       context.stroke();
@@ -695,13 +730,17 @@ Page({
     query.select(".moveArea2").fields({
       size: true,
     });
-    query
-      .select(".imgContainer")
-      .fields({
+    query.select(".imgContainer").fields({
         size: true,
-      })
-      .exec((res) => {
+      });
+    query.select(".moveArea1").fields({
+        size: true,
+    });
+    query.select(".imgContainer_").fields({
+      size: true,
+    }).exec((res) => {
         this.data.areaHeight = res[0].height - res[1].height;
+        this.data.areaWidth = res[2].width - res[3].width;
       });
   },
   /**
@@ -755,11 +794,10 @@ Page({
     lineEnd,
     isLeft
   ) {
-    console.log(onemm)
     var conunt = 0;
     var textPx = isLeft ? lineEnd + 3 : lineStart - 10;
-    context.fontSize=10;
-    for (var i = start-5; i <end; i += onemm) {
+    context.fontSize = 10;
+    for (var i = start - 5; i < end; i += onemm) {
       var temp = 0;
       if (conunt % 10 == 0) {
         temp += 10;
@@ -776,6 +814,7 @@ Page({
       conunt++;
     }
   },
+
   /**
    * 生命周期函数--监听页面显示
    */

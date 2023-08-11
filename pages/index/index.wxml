@@ -8,19 +8,19 @@
  <view class="container">
   <view style="width:100%;">
     <view style="width:100%;">
-    <image bindtap="recipe" class="img" src="http://139.196.151.36:8080/img/recipe.png" mode="aspectFit"></image>
+    <image bindtap="recipe" class="img" src="http://119.45.23.48:8080/img/recipe.png" mode="aspectFit"></image>
     <text>隐形眼镜处方</text>
     </view>
     <view style="width:100%;">
-    <image bindtap="visualTrainingIntervent" class="img" src="http://139.196.151.36:8080/img/visualTrainingIntervent.png" mode="aspectFit"></image>
+    <image bindtap="visualTrainingIntervent" class="img" src="http://119.45.23.48:8080/img/visualTrainingIntervent.png" mode="aspectFit"></image>
     <text>视功能训练干预</text>
     </view>
     <view style="width:100%;">
-    <image bindtap="docterRecipe" class="img" src="http://139.196.151.36:8080/img/docterRecipe.png" mode="aspectFit"></image>
+    <image bindtap="docterRecipe" class="img" src="http://119.45.23.48:8080/img/docterRecipe.png" mode="aspectFit"></image>
     <text>医生处方</text>
     </view>
     <view style="width:100%;">
-    <image bindtap="glassTest" class="img" src="http://139.196.151.36:8080/img/glassTest.jpg" mode="aspectFit"></image>
+    <image bindtap="glassTest" class="img" src="http://119.45.23.48:8080/img/glassTest.jpg" mode="aspectFit"></image>
     <text>自动测量器</text>
     </view>
   </view>
@@ -31,18 +31,18 @@
 <view hidden="{{currentTab!==1}}"> 
   <view class="container">
     <view class="container_1" style="flex-direction:column;">
-      <view class="btnContainer"><image bindtap="camera" class="img" mode="aspectFit" src="http://139.196.151.36:8080/img/camera.png"></image><text>高阿贝数与低阿贝数</text></view>
-      <view class="btnContainer"><image bindtap="car" class="img" mode="aspectFit" src="http://139.196.151.36:8080/img/car.png"></image><text>驾驶型镜片</text></view>
-      <view class="btnContainer"><image bindtap="physics" class="img" mode="aspectFit" src="http://139.196.151.36:8080/img/physics.png"></image><text>镜片折射率</text></view>
-      <view class="btnContainer"><image bindtap="sun" class="img" mode="aspectFit" src="http://139.196.151.36:8080/img/sun.png"></image><text>紫外线照射下与白内障</text></view>
-      <view class="btnContainer"><image bindtap="glasses" class="img" mode="aspectFit" src="http://139.196.151.36:8080/img/simulate.png"></image><text>近视眼模拟成像图</text></view>
+      <view class="btnContainer"><image bindtap="camera" class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/camera.png"></image><text>高阿贝数与低阿贝数</text></view>
+      <view class="btnContainer"><image bindtap="car" class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/car.png"></image><text>驾驶型镜片</text></view>
+      <view class="btnContainer"><image bindtap="physics" class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/physics.png"></image><text>镜片折射率</text></view>
+      <view class="btnContainer"><image bindtap="sun" class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/sun.png"></image><text>紫外线照射下与白内障</text></view>
+      <view class="btnContainer"><image bindtap="glasses" class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/simulate.png"></image><text>近视眼模拟成像图</text></view>
     </view>
     <view class="container_1" style="flex-direction:column;">
-      <view class="btnContainer"><image bindtap="multifocal" class="img" mode="aspectFit" src="http://139.196.151.36:8080/img/glasses.png"></image><text>离焦镜片原理</text></view>
-      <view class="btnContainer"><image bindtap="eye_axis" class="img" mode="aspectFit" src="http://139.196.151.36:8080/img/eye_axis.png"></image><text>眼轴和眼底</text></view>
-      <view class="btnContainer"><image bindtap="uv" class="img" mode="aspectFit" src="http://139.196.151.36:8080/img/uv.png"></image><text>变色镜片</text></view>
-      <view class="btnContainer"><image bindtap="astigmia" class="img" mode="aspectFit" src="http://139.196.151.36:8080/img/astigmia.png"></image><text>散光眼的成像</text></view>
-      <view class="btnContainer"><image bindtap="simulate" class="img" mode="aspectFit" src="http://139.196.151.36:8080/img/multifocal.png"></image><text>渐进多焦点镜片</text></view>
+      <view class="btnContainer"><image bindtap="multifocal" class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/glasses.png"></image><text>离焦镜片原理</text></view>
+      <view class="btnContainer"><image bindtap="eye_axis" class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/eye_axis.png"></image><text>眼轴和眼底</text></view>
+      <view class="btnContainer"><image bindtap="uv" class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/uv.png"></image><text>变色镜片</text></view>
+      <view class="btnContainer"><image bindtap="astigmia" class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/astigmia.png"></image><text>散光眼的成像</text></view>
+      <view class="btnContainer"><image bindtap="simulate" class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/multifocal.png"></image><text>渐进多焦点镜片</text></view>
     </view>
   </view>
 </view> 

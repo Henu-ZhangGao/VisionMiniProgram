@@ -1,7 +1,7 @@
 <!--pages/glasses/glasses.wxml-->
 <view class="container">
   <view class="imgContainer">
-    <image class="img" style="filter:blur({{blurR}}px)" mode="aspectFill" src="http://139.196.151.36:8080/img/blackboard.jpg">
+    <image class="img" style="filter:blur({{blurR}}px)" mode="aspectFill" src="http://119.45.23.48:8080/img/blackboard.jpg">
     </image>
   </view>
   <view class="button_container">

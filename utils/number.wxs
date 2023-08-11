@@ -3,6 +3,9 @@ var filters = {
     if(value==0)
     {
       return value.toFixed(0)
+    }
+    else if(value==undefined||value==NaN){
+      return 0
     }    
       return value.toFixed(2) // 此处2为保留两位小数，保留几位小数，这里写几    
   },

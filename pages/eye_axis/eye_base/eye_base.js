@@ -6,7 +6,7 @@ Page({
    */
   data: {
     buttons: [{ id: 0, name:"0.00" }, { id: 1, name: "5.00"}, { id: 2, name:"9.00"}],
-    url:"http://139.196.151.36:8080/img/eye_base_0.jpg",
+    url:"http://119.45.23.48:8080/img/eye_base_0.jpg",
   },
   radioButtonTap: function (e) {
     let id = e.currentTarget.dataset.id
@@ -14,7 +14,7 @@ Page({
       if (this.data.buttons[i].id == id) {
         //当前点击的位置为true即选中
         this.data.buttons[i].checked = true;
-        this.setData({url:"http://139.196.151.36:8080/img/eye_base_"+id+".jpg"})
+        this.setData({url:"http://119.45.23.48:8080/img/eye_base_"+id+".jpg"})
       }
       else {
         //其他的位置为false

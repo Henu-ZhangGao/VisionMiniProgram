@@ -2,28 +2,21 @@
 <wxs module="number" src="../../utils/number.wxs"></wxs>
 <view bindtouchmove='{{isRun[0]&&isRun[1]?"touchmoveCallback":""}}' bindtouchstart='{{isRun[0]&&isRun[1]?"touchstartCallback":""}}' class="container" style="padding:0px;height:100vh;width:100vw;">
   <view style="height:100%;width:100%;" class="imgbgContainer">
-    <!-- hidden="{{isDisappear}}"> -->
     <scroll-view scroll-y="true" scroll-x="true" style="height:100%;width:100%;z-index: inherit;">
       <image binderror="errImg" src="{{tempFilePaths[1]}}" style="margin-top:{{y}}px;margin-left:{{x}}px;width:{{scaleWidth}};height:{{scaleHeight}};transform:rotate({{rotate}}deg);" bindload="imgload"></image>
     </scroll-view>
   </view>
   <!-- 尺子canvas图 -->
-  <view hidden="{{(isHidden||!change[1])||(!isHidden&&!change[0])?true:false}}" style="position:absolute;top:25%;width:60%;height:50%;z-index:1;">
-    <canvas canvas-id="ruler" type="2d" id="ruler" class="canvas" />
+  <view hidden="{{(isHidden||!change[1])||(!isHidden&&!change[0])?true:false}}" style="position:absolute;top:22%;width:55%;height:65%;z-index:1;">
+    <canvas type="2d" id="ruler" class="canvas" />
   </view>
   <view hidden="{{(isHidden&&change[1])?false:true}}" style="position:absolute;top:20%;left:12.7%;width:59.5%;height:45%;z-index:1000;">
-    <canvas canvas-id="ruler_" class="canvas" />
+    <canvas type="2d" id="ruler_" class="canvas" />
   </view>
   <view style="position:absolute;top:25%;width:85%;height:50%;z-index:0;">
     <canvas type="2d" style="width:100%;height:100%;" id="eyePupuil"></canvas>
   </view>
-  <!-- <image bindload="imageOnload" src="{{tempFilePaths}}" bindtap="bindTouchMove"></image> -->
   <view class="col" style="height:100%;">
-    <!-- <movable-area style="z-index:-1" class="imgbgContainer">
-      <movable-view style="height:auto;width:auto;" direction="all">
-        <image style="width:{{scaleWidth}};height:{{scaleHeight}};-webkit-transform:rotate({{rotate}}deg);" bindload="imgload" src="{{tempFilePaths}}"></image>
-      </movable-view>
-    </movable-area> -->
     <view class="row" style="height:20%;width:100%;">
       <view hidden="{{!isHidden}}" class="textContainer">
         <text>镜框宽(mm):</text>
@@ -42,14 +35,16 @@
         <text class="text">{{number.toFix(heightPupil[0][0])}}mm</text>
       </view>
       <view hidden="{{isHidden}}" class="textContainer">
-        <button class="btn btnSmall" data-status="-" bindtap="changeBias" style="width:5%;">-</button>
-        <!-- <input placeholder="请输入值" type="text" bindblur="changeBias" class="text" value="{{biasValue}}" /> -->
+        <button class="btn btnSmall" data-status="-" bindtap="changeBias" style="width:5%;">
+          -
+        </button>
         <picker mode="selector" bindchange="changePosition" value="{{eyePositionIndex}}" range="{{eyePosition}}">
           <text class="text">{{eyePosition[eyePositionIndex]}}</text>
         </picker>
-        <button class="btn btnSmall" data-status="+" bindtap="changeBias" style="width:5%;">+</button>
+        <button class="btn btnSmall" data-status="+" bindtap="changeBias" style="width:5%;">
+          +
+        </button>
       </view>
-      <!-- <button hidden="{{isHidden}}" bindtap="save" style="width:10%;" class="btnTop {{isDisappear?'btn1':''}}">{{change?str1:str2}}</button> -->
     </view>
     <view class="canvasContainer {{!isHidden?'col':'row'}}" style="height:{{isHidden?60:80}}%;flex-direction:{{!isHidden?'column':'row-reverse'}}">
       <view style="font-size:1em;width:10%;">
@@ -57,17 +52,12 @@
         <text class="text" wx:if="{{isHidden}}">{{number.toFix(heightPupil[1][1]/10)}}cm</text>
       </view>
       <movable-area hidden="{{(!isHidden||!change[1])&&(isHidden||!change[0])}}" class="moveContainer moveArea2">
-        <!-- <image hidden="{{isHidden}}" mode="bottom" style="width:10%;height:100%;" src="http://139.196.151.36:8080/img/calibration.png"/> -->
-        <!-- <text hidden="{{isHidden}}" style="position:absolute;transform: rotate(-90deg);">{{number.toFix(heightPupil[0]/10)}}cm</text> -->
         <movable-view data-id="left" hidden="{{isHidden}}" bindtouchstart="touchStart" bindtouchend="touchEnd" bindchange="touchMove" direction="vertical" class="imgContainer">
           <image src="{{url[2]}}" class="img"></image>
         </movable-view>
         <!-- 上面7行 不要用三目运算符，direction无法判断 -->
       </movable-area>
       <movable-area wx:if="{{(isHidden&&change[1])||(!isHidden&&change[0])}}" class="moveContainer moveArea1">
-        <!-- <view style="width:100%;height:10%;margin-top:20%;"><image hidden="{{!isHidden}}" mode="aspectFill" style="width: 100%; height: 100%;" src="http://139.196.151.36:8080/img/calibration_1.png"/>
-        </view> -->
-        <!-- <view wx:if="{{isHidden}}" style="display:flex;justify-content:space-between;"><text>{{number.toFix(heightPupil[1]/10)}}cm</text><text>0cm</text><text>{{number.toFix(heightPupil_1[1]/10)}}cm</text></view> -->
         <movable-view hidden="{{!isHidden}}" data-id="right" bindtouchstart="touchStart" bindtouchend="touchEnd" bindchange="touchMove" direction="horizontal" class="imgContainer_">
           <image src="{{url[3]}}" class="img"></image>
         </movable-view>
@@ -75,6 +65,7 @@
           <image src="{{url[4]}}" class="img"></image>
         </movable-view>
       </movable-area>
+      <!-- 绿色校准线 -->
       <view style="width:{{!isHidden?'100%':'70%'}};height:100%;">
         <!-- hidden="{{isDisappear}}" -->
         <image src='{{isHidden?url[1]:url[0]}}' class="imgbg"></image>
@@ -108,14 +99,13 @@
     </view>
   </view>
 </view>
-
 <!-- 左边按钮定位 -->
-<view class='btnFloat'>
-  <button bindtap="onDrawPoint" class="btn btnSmall" style="width:100%;height:100%;">
-    定位
+<view hidden="{{isHidden}}" class='btnFloat'>
+  <button bindtap="onDrawPoint" class="btn btnSmall" style="width:100%;height:100%;">定位</button>
+  <button bindtap="changeMode" class="btn" style="width:100%;height:100%;">
+    <text>{{Mode?"上下":"左右"}}</text>
   </button>
 </view>
-
 <!-- <view hidden="{{isHidden}}" wx:if="{{isShow}}" class="tableContainer">
     <view class="su-th">
       <view wx:key="*this" wx:for="{{tableHead}}">{{item}}</view>
