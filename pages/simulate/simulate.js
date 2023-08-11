@@ -11,8 +11,8 @@ Page({
     width:0,
     height:0,
     byclear: 1,
-    url:"http://119.45.23.48:8080/img/simulate_1.jpg",
-    url_1:"http://119.45.23.48:8080/img/simulate_",
+    url:"{{app.globalData.address}}/img/simulate_1.jpg",
+    url_1:"{{app.globalData.address}}/img/simulate_",
     isHidden:false,
   },
   top:function(){
@@ -42,14 +42,14 @@ Page({
   },
   toContainerOne:function(){
     this.setData({
-      url_1:"http://119.45.23.48:8080/img/simulate_",
-      url:"http://119.45.23.48:8080/img/simulate_1.jpg"
+      url_1:"{{app.globalData.address}}/img/simulate_",
+      url:"{{app.globalData.address}}/img/simulate_1.jpg"
     })
   },
   toContainerTwo:function(){
     this.setData({
-      url_1:"http://119.45.23.48:8080/img/simulate",
-      url:"http://119.45.23.48:8080/img/simulate1.jpg"
+      url_1:"{{app.globalData.address}}/img/simulate",
+      url:"{{app.globalData.address}}/img/simulate1.jpg"
     })
   },
   /**

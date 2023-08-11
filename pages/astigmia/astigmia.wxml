@@ -1,15 +1,15 @@
 <!--pages/astigmia/astigmia.wxml-->
 <view class="container">
   <view class="col">
-    <image class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/blackboard.jpg" bindtap="toComparisonClear"></image>
+    <image class="img" mode="aspectFit" src="{{app.globalData.address}}/img/blackboard.jpg" bindtap="toComparisonClear"></image>
     <text>清晰度对比</text>
   </view>
   <view class="col">
-    <image class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/cornea.jpg" bindtap="toComparisonCornea"></image>
+    <image class="img" mode="aspectFit" src="{{app.globalData.address}}/img/cornea.jpg" bindtap="toComparisonCornea"></image>
     <text>角膜地形对比</text>
   </view>
   <view class="col">
-    <image class="img" mode="aspectFit" src="http://119.45.23.48:8080/img/imaging_1.jpg" bindtap="toComparisonimaging"></image>
+    <image class="img" mode="aspectFit" src="{{app.globalData.address}}/img/imaging_1.jpg" bindtap="toComparisonimaging"></image>
     <text>成像对比</text>
   </view>
 </view>

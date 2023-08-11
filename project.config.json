@@ -43,7 +43,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.20.0",
-  "appid": "wxf984eacc5bb3c217",
+  "appid": "",
   "projectname": "VisionHelper",
   "debugOptions": {
     "hidedInDevtools": []

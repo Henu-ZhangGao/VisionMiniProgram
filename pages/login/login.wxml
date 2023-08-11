@@ -2,7 +2,7 @@
 <view class="container"> 
  
  <view class="login-icon"> 
- <image class="login-img" mode="aspectFit" src="http://119.45.23.48:8080/img/title.png"></image> 
+ <image class="login-img" mode="aspectFit" src="{{app.globalData.address}}/img/title.png"></image> 
  </view> 
  <view class="login-from"> 
  

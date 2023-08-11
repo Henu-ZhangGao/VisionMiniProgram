@@ -6,7 +6,7 @@ Page({
    */
   data: {
     buttons: [{ id: 1, name: '无镜片'}, { id: 2, name: '常规镜片'}, { id: 3, name: '离焦镜片' }],
-    "url":"http://119.45.23.48:8080/img/multifocal_1.png"
+    "url":"{{app.globalData.address}}/img/multifocal_1.png"
   },
   radioButtonTap: function (e) {
     let id = e.currentTarget.dataset.id
@@ -14,7 +14,7 @@ Page({
       if (this.data.buttons[i].id == id) {
         //当前点击的位置为true即选中
         this.data.buttons[i].checked = true
-        let str="http://119.45.23.48:8080/img/multifocal_" + id + ".png"
+        let str="{{app.globalData.address}}/img/multifocal_" + id + ".png"
         this.setData({url:str})
       }
       else {
